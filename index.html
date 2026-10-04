@@ -119,9 +119,24 @@
   #orphHero{overflow:hidden}
   @keyframes hero-zoom{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
   #orphHeroImg{animation:hero-zoom 16s ease-in-out infinite}
+  .inapp-banner{position:fixed;top:0;left:0;right:0;z-index:700;background:linear-gradient(135deg,#fbbf24 0%,#f59e0b 100%);color:#451a03;padding:10px 14px;box-shadow:0 4px 14px rgba(0,0,0,.15);font-size:12px;line-height:1.35;display:flex;gap:10px;align-items:flex-start}
+  .inapp-banner strong{font-weight:800}
+  .inapp-banner button{background:rgba(69,26,3,.9);color:#fef3c7;border:none;padding:6px 12px;border-radius:9999px;font-weight:800;font-size:11px;white-space:nowrap;cursor:pointer;flex-shrink:0}
+  body.has-inapp-banner{padding-top:76px}
+  .pop-anim{animation:pop-in .32s cubic-bezier(.34,1.56,.64,1)}
+  @keyframes pop-in{0%{transform:scale(.85);opacity:0}60%{transform:scale(1.02);opacity:1}100%{transform:scale(1);opacity:1}}
 </style>
 </head>
 <body class="bg-gray-50 text-gray-900 min-h-screen">
+
+<!-- IN-APP BROWSER BANNER -->
+<div id="inAppBanner" class="hidden inapp-banner">
+  <div class="flex-1">
+    <strong>Open in your browser for the best experience</strong>
+    <p style="margin-top:2px;opacity:.85;">You're using an in-app browser. For payments and sharing to work reliably, tap the <strong>•••</strong> menu and choose <strong>"Open in browser"</strong>.</p>
+  </div>
+  <button onclick="dismissInAppBanner()">Got it</button>
+</div>
 
 <!-- ═══════════════ HOME ═══════════════ -->
 <div id="homeView" class="min-h-screen w-full">
@@ -534,7 +549,7 @@
         </svg>
       </div>
       <div class="flex-1">
-        <div class="inline-block px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wider mb-1" style="background:rgba(251,191,36,.95);color:#451a03;">God bless your donation.</div>
+        <div class="inline-block px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wider mb-1" style="background:rgba(251,191,36,.95);color:#451a03;">Donate to our cause.</div>
         <h3>Support the Ministry</h3>
         <p>Keep the Gospel going — crusades, missions, and the daily work of the church.</p>
       </div>
@@ -1101,14 +1116,142 @@
   </div>
 </div>
 
+<!-- SHARE MODAL -->
+<div id="shareModal" class="hidden fixed inset-0 z-[550] flex items-center justify-center p-5 bg-black/70 backdrop-blur-sm">
+  <div class="bg-white rounded-3xl shadow-2xl w-full max-w-sm p-5 pop-anim max-h-[92vh] overflow-y-auto">
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="text-base font-extrabold text-gray-900">Share this cause</h3>
+      <button onclick="closeShareModal()" class="text-gray-400 text-2xl leading-none">&times;</button>
+    </div>
+
+    <div class="bg-gray-50 border border-gray-200 rounded-2xl p-3 mb-3">
+      <p class="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Link</p>
+      <p id="shareModalUrl" class="text-[11px] font-mono text-violet-700 break-all select-all">—</p>
+    </div>
+
+    <div class="flex justify-center mb-3">
+      <div class="bg-white border-2 border-gray-100 rounded-2xl p-3">
+        <img id="shareModalQr" src="" alt="QR code" class="w-40 h-40" />
+      </div>
+    </div>
+
+    <p class="text-[10px] text-gray-400 text-center mb-4 leading-snug">
+      Scan to open · Or long-press the link above to copy
+    </p>
+
+    <div class="grid grid-cols-2 gap-2">
+      <button onclick="modalCopyUrl()" class="bg-violet-800 text-white py-3 rounded-xl font-semibold text-sm">Copy Link</button>
+      <button onclick="modalNativeShare()" class="bg-amber-400 text-violet-950 py-3 rounded-xl font-semibold text-sm">Share</button>
+    </div>
+    <button onclick="closeShareModal()" class="mt-2 w-full text-gray-500 py-3 text-sm font-medium">Close</button>
+  </div>
+</div>
+
 <div id="toast" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[600] bg-gray-900 text-white text-sm px-5 py-2.5 rounded-full shadow-lg pointer-events-none toast-anim"></div>
 
 <script>
+/* ═══════════════════════════════════════════════════════════
+   SAFE STORAGE
+   ═══════════════════════════════════════════════════════════ */
+const __memStore = {};
+const safeStorage = {
+  get(key) {
+    try { return window.sessionStorage.getItem(key); }
+    catch (_) { return __memStore[key] ?? null; }
+  },
+  set(key, value) {
+    try { window.sessionStorage.setItem(key, String(value)); }
+    catch (_) { __memStore[key] = String(value); }
+  },
+  remove(key) {
+    try { window.sessionStorage.removeItem(key); }
+    catch (_) { delete __memStore[key]; }
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════
+   IN-APP BROWSER DETECTION
+   ═══════════════════════════════════════════════════════════ */
+const __ua = navigator.userAgent || '';
+const isTikTok = /BytedanceWebview|TikTok|musical_ly|Bytedance/i.test(__ua);
+const isInstagram = /Instagram/i.test(__ua);
+const isFacebook = /FBAN|FBAV|FB_IAB|FB4A/i.test(__ua);
+const isInAppBrowser = isTikTok || isInstagram || isFacebook;
+
+function showInAppBanner() {
+  if (!isInAppBrowser) return;
+  if (safeStorage.get('km_inapp_dismissed') === '1') return;
+  const b = document.getElementById('inAppBanner');
+  if (!b) return;
+  b.classList.remove('hidden');
+  document.body.classList.add('has-inapp-banner');
+}
+function dismissInAppBanner() {
+  const b = document.getElementById('inAppBanner');
+  if (b) b.classList.add('hidden');
+  document.body.classList.remove('has-inapp-banner');
+  safeStorage.set('km_inapp_dismissed', '1');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ROBUST CLIPBOARD
+   ═══════════════════════════════════════════════════════════ */
+async function copyToClipboard(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (_) { /* fall through */ }
+  }
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.top = '-9999px';
+    ta.style.left = '-9999px';
+    ta.setAttribute('readonly', '');
+    document.body.appendChild(ta);
+    ta.select();
+    ta.setSelectionRange(0, text.length);
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  } catch (_) { return false; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CAUSE VISIT MEMORY + RESUME BANNER
+   ═══════════════════════════════════════════════════════════ */
+function rememberCauseVisit(slug) {
+  safeStorage.set('km_last_cause', slug);
+}
+function getLastCauseSlug() {
+  return safeStorage.get('km_last_cause') || '';
+}
+function offerResumeCause(slug) {
+  const b = document.createElement('div');
+  b.id = 'resumeCauseBanner';
+  b.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:650;background:#ede9fe;border-bottom:1px solid #c4b5fd;color:#4c1d95;padding:10px 14px;display:flex;align-items:center;gap:10px;font-size:12px;box-shadow:0 4px 12px rgba(0,0,0,.08);font-family:system-ui,-apple-system,sans-serif';
+  b.innerHTML = `
+    <span style="flex:1">Continue where you left off?</span>
+    <button onclick="document.getElementById('resumeCauseBanner').remove();openCause('${slug}')" style="background:#6d28d9;color:#fff;border:none;padding:6px 12px;border-radius:9999px;font-weight:800;font-size:11px;cursor:pointer">Resume</button>
+    <button onclick="document.getElementById('resumeCauseBanner').remove()" style="background:transparent;color:#6d28d9;border:none;font-size:18px;line-height:1;cursor:pointer;padding:0 4px">×</button>
+  `;
+  document.body.appendChild(b);
+  setTimeout(() => { const el = document.getElementById('resumeCauseBanner'); if (el) el.remove(); }, 10000);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CONFIG
+   ═══════════════════════════════════════════════════════════ */
 const SUPABASE_URL      = 'https://zpcbfaydgbhpjqsgfluv.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_LNA8s-X4zUxoRN-oBsG2mQ_zyRKMAYQ';
 const DEFAULT_ADMIN_PIN = '246810';
 
-const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+  auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false }
+});
+
 const $  = (id) => document.getElementById(id);
 
 const CURRENCY  = 'KSh';
@@ -1116,6 +1259,7 @@ const MIN_GIFT  = 1;
 const MAX_GIFT  = 500000;
 const STK_TIMEOUT = 240;
 const ADMIN_SESSION_KEY = 'km_admin_unlocked';
+const CAUSE_CACHE_PREFIX = 'km_cause_';
 
 const PRESETS  = [50, 100, 200, 500, 1000, 2000, 5000, 10000];
 const PURPOSES = ['Tithe','Offering','Thanksgiving','Building Fund','Missions','Youth Ministry','Orphanage','Welfare','Pastor\'s Gift','Other'];
@@ -1126,7 +1270,7 @@ let currentDonation = null;
 let wizardStep = 1;
 let pollToken = 0;
 let pollTimer = null;
-let adminUnlocked = sessionStorage.getItem(ADMIN_SESSION_KEY) === '1';
+let adminUnlocked = safeStorage.get(ADMIN_SESSION_KEY) === '1';
 let galleryItems = [];
 let currentGalleryFilter = 'all';
 let prayerFilter = 'all';
@@ -1202,7 +1346,13 @@ function makeRef() {
 window.addEventListener('hashchange', handleHashRoute);
 
 function handleHashRoute() {
-  const raw = (location.hash || '').replace('#','').toLowerCase();
+  let raw = (location.hash || '').replace('#','').toLowerCase();
+
+  if (!raw) {
+    const m = (location.pathname || '').match(/\/cause\/([a-z0-9\-_]+)/i);
+    if (m) raw = 'cause/' + m[1].toLowerCase();
+  }
+
   if (!raw) return;
 
   if (raw === 'admin' || raw === 'ministry-admin' || raw === 'ministry') { openAdminGate(); return; }
@@ -1219,18 +1369,21 @@ function handleHashRoute() {
 }
 
 /* ═══ PUBLIC CAUSE PAGE ═══ */
-async function openCause(slug) {
-  const { data, error } = await sb.from('causes')
-    .select('*').eq('slug', slug).eq('active', true).maybeSingle();
+function getCachedCause(slug) {
+  try {
+    const raw = safeStorage.get(CAUSE_CACHE_PREFIX + slug);
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch (_) { return null; }
+}
+function setCachedCause(slug, data) {
+  try {
+    safeStorage.set(CAUSE_CACHE_PREFIX + slug, JSON.stringify(data));
+  } catch (_) {}
+}
 
-  if (error || !data) {
-    showToast('Cause not found or no longer active', 'error');
-    showView('homeView');
-    return;
-  }
-
+function renderCauseFromData(data) {
   activeCause = data;
-
   $('causeImage').src = data.image_url || '';
   $('causeImage').alt = data.title || '';
   $('causeEmoji').textContent = data.emoji || '❤️';
@@ -1259,22 +1412,75 @@ async function openCause(slug) {
   else verseWrap.classList.remove('hidden');
 
   $('causeShareBtn').onclick = () => shareCurrentCause();
-
-  showView('causeView');
 }
 
-function shareCurrentCause() {
+async function openCause(slug) {
+  // Try cached version for instant render
+  const cached = getCachedCause(slug);
+
+  if (cached) {
+    renderCauseFromData(cached);
+  } else {
+    $('causeImage').src = '';
+    $('causeEmoji').textContent = '⏳';
+    $('causeTitle').textContent = 'Loading…';
+    $('causeTagline').textContent = '';
+    $('causeDescription').textContent = '';
+    $('causeVerse').textContent = '';
+    $('causeVerseRef').textContent = '';
+    $('causeImpact').innerHTML = '';
+    $('causeVerseWrap').classList.add('hidden');
+    $('causeImpactWrap').classList.add('hidden');
+  }
+  showView('causeView');
+
+  // Fetch fresh data (with retry)
+  let data = null;
+  let lastErr = null;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const res = await sb.from('causes').select('*').eq('slug', slug).eq('active', true).maybeSingle();
+      if (res.data) { data = res.data; break; }
+      if (res.error) lastErr = res.error;
+    } catch (e) { lastErr = e; }
+    await sleep(600);
+  }
+
+  if (!data) {
+    // If we showed cached version, keep showing it
+    if (cached) return;
+
+    // Otherwise show friendly error
+    $('causeEmoji').textContent = '😕';
+    $('causeTitle').textContent = 'Cause not found';
+    $('causeTagline').textContent = 'This link may have expired or been removed.';
+    $('causeDescription').textContent = 'Please contact the ministry office for assistance, or return to the home page to explore other ways to give.';
+    $('causeImage').src = 'https://images.unsplash.com/photo-1438032005730-c779502df39b?w=1200&q=80';
+    $('causeCtaLabel').textContent = 'the ministry';
+    $('causeShareBtn').onclick = () => {};
+    activeCause = null;
+    console.error('Cause load failed:', lastErr);
+    return;
+  }
+
+  setCachedCause(slug, data);
+  rememberCauseVisit(data.slug);
+  renderCauseFromData(data);
+}
+
+async function shareCurrentCause() {
   if (!activeCause) return;
   const url = location.origin + location.pathname + '#cause/' + activeCause.slug;
-  const text = `Support ${activeCause.title} at Kakande Ministries`;
+  const title = activeCause.title;
+  const message = `${title} — Kakande Ministries\nSupport this cause:`;
+
   if (navigator.share) {
-    navigator.share({ title: activeCause.title, text, url }).catch(() => {});
-  } else {
-    navigator.clipboard?.writeText(text + '\n' + url).then(
-      () => showToast('Link copied', 'success'),
-      () => showToast('Could not copy', 'error')
-    );
+    try {
+      await navigator.share({ title, text: message, url });
+      return;
+    } catch (_) { /* fall through */ }
   }
+  openShareModal(url, title);
 }
 
 function closeCause() {
@@ -1295,6 +1501,35 @@ function startGivingFromCause() {
   $('customAmount').value = '';
   updateWizardUI();
   showView('wizardView');
+}
+
+/* ═══ SHARE MODAL ═══ */
+function openShareModal(url, title) {
+  $('shareModalUrl').textContent = url;
+  $('shareModalQr').src = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=0&data=' + encodeURIComponent(url);
+  $('shareModal').classList.remove('hidden');
+  window.__shareModalUrl = url;
+  window.__shareModalTitle = title || 'Kakande Ministries';
+}
+function closeShareModal() {
+  $('shareModal').classList.add('hidden');
+}
+async function modalCopyUrl() {
+  const url = window.__shareModalUrl || '';
+  const ok = await copyToClipboard(url);
+  if (ok) showToast('Link copied', 'success');
+  else showToast('Long-press the link above to copy', 'error');
+}
+async function modalNativeShare() {
+  const url = window.__shareModalUrl || '';
+  const title = window.__shareModalTitle || 'Kakande Ministries';
+  if (navigator.share) {
+    try {
+      await navigator.share({ title, text: `Support ${title} at Kakande Ministries`, url });
+      return;
+    } catch (_) {}
+  }
+  showToast('Tap "Copy Link" instead', 'warning');
 }
 
 /* ═══ ADMIN: CAUSE CRUD ═══ */
@@ -1335,26 +1570,27 @@ async function adminLoadCauses() {
   }).join('');
 }
 
-function copyCauseUrl(id) {
+async function copyCauseUrl(id) {
   const el = $('causeUrl-' + id);
-  if (!el) return;
-  navigator.clipboard?.writeText(el.textContent).then(
-    () => showToast('Link copied — paste anywhere', 'success'),
-    () => showToast('Could not copy', 'error')
-  );
+  if (!el) { showToast('Could not find link', 'error'); return; }
+  const url = el.textContent.trim();
+  const ok = await copyToClipboard(url);
+  if (ok) showToast('Link copied — paste anywhere', 'success');
+  else openShareModal(url, 'Kakande Ministries');
 }
 
-function shareCauseBySlug(slug) {
+async function shareCauseBySlug(slug) {
   const url = location.origin + location.pathname + '#cause/' + slug;
-  const text = 'Support this cause at Kakande Ministries';
+  const title = 'Kakande Ministries';
+  const message = `Support this cause:\n${url}`;
+
   if (navigator.share) {
-    navigator.share({ title: 'Kakande Ministries', text, url }).catch(() => {});
-  } else {
-    navigator.clipboard?.writeText(text + '\n' + url).then(
-      () => showToast('Link copied', 'success'),
-      () => showToast('Could not copy', 'error')
-    );
+    try {
+      await navigator.share({ title, text: message, url });
+      return;
+    } catch (_) {}
   }
+  openShareModal(url, title);
 }
 
 function slugify(str) {
@@ -1478,6 +1714,8 @@ async function saveCause() {
       if (error) throw error;
       showToast('Cause created — copy the link to share', 'success');
     }
+    // Clear cache for this slug so fresh version loads next time
+    safeStorage.remove(CAUSE_CACHE_PREFIX + slug);
     closeCauseForm();
     await adminLoadCauses();
   } catch (e) {
@@ -1497,7 +1735,9 @@ async function saveCause() {
 async function deleteCause(id) {
   if (!confirm('Delete this cause? The public link will stop working.')) return;
   try {
+    const { data } = await sb.from('causes').select('slug').eq('id', id).maybeSingle();
     await sb.from('causes').delete().eq('id', id);
+    if (data?.slug) safeStorage.remove(CAUSE_CACHE_PREFIX + data.slug);
     showToast('Cause deleted', 'success');
     await adminLoadCauses();
   } catch (e) { showToast(e.message || 'Could not delete', 'error'); }
@@ -1559,12 +1799,12 @@ function verifyAdminPin() {
     return;
   }
   adminUnlocked = true;
-  sessionStorage.setItem(ADMIN_SESSION_KEY, '1');
+  safeStorage.set(ADMIN_SESSION_KEY, '1');
   openAdminDashboard();
 }
 function adminLogout() {
   adminUnlocked = false;
-  sessionStorage.removeItem(ADMIN_SESSION_KEY);
+  safeStorage.remove(ADMIN_SESSION_KEY);
   showToast('Admin session locked', 'success');
   showView('homeView');
 }
@@ -2047,19 +2287,21 @@ function showReceipt(d) {
   };
   $('rcThankNote').textContent = notes[purpose] || 'Thank you for your generous gift. Every shilling is used faithfully for the Kingdom.';
 
-  sessionStorage.setItem('km_just_gave', '1');
+  safeStorage.set('km_just_gave', '1');
   showView('receiptView');
   setTimeout(() => showToast('🙏 Thank you for your gift!', 'success'), 400);
 }
 
-function shareReceipt() {
+async function shareReceipt() {
   if (!currentDonation) return;
   const text = `Kakande Ministries gift\n${fmt(currentDonation.amount)} — ${currentDonation.purpose}\nReceipt: ${currentDonation.mpesa_receipt || '—'}\nRef: ${currentDonation.reference_no}`;
-  if (navigator.share) navigator.share({ title: 'Gift Receipt', text }).catch(() => {});
-  else navigator.clipboard?.writeText(text).then(
-    () => showToast('Receipt copied to clipboard', 'success'),
-    () => showToast('Could not copy', 'error')
-  );
+  if (navigator.share) {
+    try { await navigator.share({ title: 'Gift Receipt', text }); return; }
+    catch (_) {}
+  }
+  const ok = await copyToClipboard(text);
+  if (ok) showToast('Receipt copied to clipboard', 'success');
+  else showToast('Long-press to copy manually', 'error');
 }
 
 /* ═══ ADMIN: Gallery ═══ */
@@ -2287,13 +2529,31 @@ async function saveMinistryInfo() {
   renderOrphanageGallery();
   renderOrphanageHero();
 
-  const justGave = sessionStorage.getItem('km_just_gave');
+  showInAppBanner();
+
+  const justGave = safeStorage.get('km_just_gave');
   if (justGave) {
-    sessionStorage.removeItem('km_just_gave');
+    safeStorage.remove('km_just_gave');
     setTimeout(() => showToast('🙏 Thank you again for your gift!', 'success'), 800);
   }
 
-  showView('homeView');
+  // Route if opening with a hash or clean path
+  handleHashRoute();
+
+  // If no route handled, show home
+  const anyViewVisible = VIEWS.some(v => {
+    const el = $(v);
+    return el && !el.classList.contains('hidden');
+  });
+  if (!anyViewVisible) {
+    showView('homeView');
+
+    // Offer to resume if a cause was recently visited and no hash present
+    const lastSlug = getLastCauseSlug();
+    if (lastSlug && !location.hash) {
+      setTimeout(() => offerResumeCause(lastSlug), 1500);
+    }
+  }
 })();
 </script>
 </body>
