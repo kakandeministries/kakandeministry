@@ -63,72 +63,22 @@
   .fld{width:100%;border:1px solid #e5e7eb;background:#f9fafb;border-radius:.75rem;padding:.75rem;font-size:.875rem;outline:none;transition:all .15s}
   .fld:focus{background:#fff;border-color:#7c3aed;box-shadow:0 0 0 4px rgba(124,58,237,.1)}
   .fld-lbl{display:block;font-size:.75rem;font-weight:500;color:#4b5563;margin-bottom:.4rem}
-  .pray-fab{
-    position:fixed;bottom:22px;right:22px;z-index:45;
-    display:inline-flex;align-items:center;gap:.5rem;
-    background:linear-gradient(135deg,#7c3aed 0%,#5b21b6 100%);
-    color:#fff;font-weight:800;font-size:13px;
-    padding:.85rem 1.1rem;border-radius:9999px;
-    box-shadow:0 10px 28px -6px rgba(91,33,182,.55),0 4px 12px -2px rgba(91,33,182,.35);
-    transition:transform .15s ease;
-  }
+  .pray-fab{position:fixed;bottom:22px;right:22px;z-index:45;display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,#7c3aed 0%,#5b21b6 100%);color:#fff;font-weight:800;font-size:13px;padding:.85rem 1.1rem;border-radius:9999px;box-shadow:0 10px 28px -6px rgba(91,33,182,.55),0 4px 12px -2px rgba(91,33,182,.35);transition:transform .15s ease}
   .pray-fab:active{transform:scale(.96)}
-  .pray-fab::before{
-    content:'';position:absolute;inset:0;border-radius:9999px;
-    background:rgba(124,58,237,.4);
-    animation:fab-pulse 2.4s ease-in-out infinite;
-    z-index:-1;
-  }
+  .pray-fab::before{content:'';position:absolute;inset:0;border-radius:9999px;background:rgba(124,58,237,.4);animation:fab-pulse 2.4s ease-in-out infinite;z-index:-1}
   @keyframes fab-pulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.15);opacity:0}}
-  .appeal-card{
-    display:flex;align-items:center;gap:1rem;
-    padding:1.1rem 1.15rem;border-radius:1.25rem;
-    box-shadow:0 10px 26px -8px rgba(0,0,0,.25);
-    transition:transform .15s ease,box-shadow .15s ease;
-    text-align:left;width:100%;
-    position:relative;overflow:hidden;
-  }
-  .appeal-card .icon-wrap{
-    width:3.5rem;height:3.5rem;border-radius:1rem;
-    display:flex;align-items:center;justify-content:center;
-    flex-shrink:0;
-  }
+  .appeal-card{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.15rem;border-radius:1.25rem;box-shadow:0 10px 26px -8px rgba(0,0,0,.25);transition:transform .15s ease,box-shadow .15s ease;text-align:left;width:100%;position:relative;overflow:hidden}
+  .appeal-card .icon-wrap{width:3.5rem;height:3.5rem;border-radius:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
   .appeal-card h3{font-size:1.05rem;font-weight:800;line-height:1.15}
   .appeal-card p{font-size:11.5px;line-height:1.4;opacity:.85;margin-top:3px}
   .appeal-card .arrow{opacity:.7;flex-shrink:0;transition:transform .2s ease}
-  @keyframes appeal-shine{
-    0%{transform:translateX(-130%) skewX(-15deg)}
-    55%{transform:translateX(240%) skewX(-15deg)}
-    100%{transform:translateX(240%) skewX(-15deg)}
-  }
-  @keyframes appeal-breathe{
-    0%,100%{transform:scale(1)}
-    50%{transform:scale(1.018)}
-  }
-  @keyframes appeal-arrow{
-    0%,100%{transform:translateX(0)}
-    50%{transform:translateX(6px)}
-  }
-  @keyframes appeal-icon-wiggle{
-    0%,100%{transform:rotate(0deg) scale(1)}
-    20%{transform:rotate(-7deg) scale(1.05)}
-    50%{transform:rotate(0deg) scale(1)}
-    80%{transform:rotate(7deg) scale(1.05)}
-  }
-  @keyframes appeal-glow{
-    0%,100%{box-shadow:0 10px 26px -8px rgba(0,0,0,.25),0 0 0 0 rgba(251,191,36,0)}
-    50%{box-shadow:0 14px 32px -8px rgba(0,0,0,.35),0 0 0 8px rgba(251,191,36,.08)}
-  }
-  .appeal-card{
-    animation:appeal-breathe 3.4s ease-in-out infinite,appeal-glow 3.4s ease-in-out infinite;
-  }
-  .appeal-card::after{
-    content:'';position:absolute;top:0;left:0;width:55%;height:100%;
-    background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.28) 45%,rgba(255,255,255,.42) 50%,rgba(255,255,255,.28) 55%,transparent 100%);
-    pointer-events:none;
-    animation:appeal-shine 3.6s ease-in-out infinite;
-    z-index:1;
-  }
+  @keyframes appeal-shine{0%{transform:translateX(-130%) skewX(-15deg)}55%{transform:translateX(240%) skewX(-15deg)}100%{transform:translateX(240%) skewX(-15deg)}}
+  @keyframes appeal-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.018)}}
+  @keyframes appeal-arrow{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
+  @keyframes appeal-icon-wiggle{0%,100%{transform:rotate(0deg) scale(1)}20%{transform:rotate(-7deg) scale(1.05)}50%{transform:rotate(0deg) scale(1)}80%{transform:rotate(7deg) scale(1.05)}}
+  @keyframes appeal-glow{0%,100%{box-shadow:0 10px 26px -8px rgba(0,0,0,.25),0 0 0 0 rgba(251,191,36,0)}50%{box-shadow:0 14px 32px -8px rgba(0,0,0,.35),0 0 0 8px rgba(251,191,36,.08)}}
+  .appeal-card{animation:appeal-breathe 3.4s ease-in-out infinite,appeal-glow 3.4s ease-in-out infinite}
+  .appeal-card::after{content:'';position:absolute;top:0;left:0;width:55%;height:100%;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.28) 45%,rgba(255,255,255,.42) 50%,rgba(255,255,255,.28) 55%,transparent 100%);pointer-events:none;animation:appeal-shine 3.6s ease-in-out infinite;z-index:1}
   .appeal-card > *{position:relative;z-index:2}
   .appeal-card .arrow{animation:appeal-arrow 1.8s ease-in-out infinite}
   .appeal-card .icon-wrap svg{animation:appeal-icon-wiggle 2.8s ease-in-out infinite}
@@ -138,92 +88,37 @@
   .appeal-card.delay-2 .icon-wrap svg{animation-delay:.4s}
   .appeal-card.delay-2 .arrow{animation-delay:.5s}
   .appeal-card:active{transform:scale(.97) !important;animation-play-state:paused}
-  /* Animated prayer wall CTA */
-  .pray-cta{
-    position:relative;overflow:hidden;
-    background:linear-gradient(135deg,#7c3aed 0%,#5b21b6 55%,#3b0764 100%);
-    animation:pray-cta-breathe 3.2s ease-in-out infinite,pray-cta-glow 3.2s ease-in-out infinite;
-  }
-  @keyframes pray-cta-breathe{
-    0%,100%{transform:scale(1)}
-    50%{transform:scale(1.025)}
-  }
-  @keyframes pray-cta-glow{
-    0%,100%{box-shadow:0 12px 30px -8px rgba(91,33,182,.55),0 0 0 0 rgba(251,191,36,0)}
-    50%{box-shadow:0 16px 38px -8px rgba(91,33,182,.7),0 0 0 10px rgba(251,191,36,.1)}
-  }
-  .pray-cta::after{
-    content:'';position:absolute;top:0;left:0;width:60%;height:100%;
-    background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.3) 45%,rgba(255,255,255,.5) 50%,rgba(255,255,255,.3) 55%,transparent 100%);
-    pointer-events:none;
-    animation:pray-cta-shine 3.4s ease-in-out infinite;
-    z-index:1;
-  }
-  @keyframes pray-cta-shine{
-    0%{transform:translateX(-130%) skewX(-15deg)}
-    55%{transform:translateX(240%) skewX(-15deg)}
-    100%{transform:translateX(240%) skewX(-15deg)}
-  }
+  .pray-cta{position:relative;overflow:hidden;background:linear-gradient(135deg,#7c3aed 0%,#5b21b6 55%,#3b0764 100%);animation:pray-cta-breathe 3.2s ease-in-out infinite,pray-cta-glow 3.2s ease-in-out infinite}
+  @keyframes pray-cta-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+  @keyframes pray-cta-glow{0%,100%{box-shadow:0 12px 30px -8px rgba(91,33,182,.55),0 0 0 0 rgba(251,191,36,0)}50%{box-shadow:0 16px 38px -8px rgba(91,33,182,.7),0 0 0 10px rgba(251,191,36,.1)}}
+  .pray-cta::after{content:'';position:absolute;top:0;left:0;width:60%;height:100%;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.3) 45%,rgba(255,255,255,.5) 50%,rgba(255,255,255,.3) 55%,transparent 100%);pointer-events:none;animation:pray-cta-shine 3.4s ease-in-out infinite;z-index:1}
+  @keyframes pray-cta-shine{0%{transform:translateX(-130%) skewX(-15deg)}55%{transform:translateX(240%) skewX(-15deg)}100%{transform:translateX(240%) skewX(-15deg)}}
   .pray-cta > *{position:relative;z-index:2}
   .pray-cta .arrow{animation:pray-cta-arrow 1.8s ease-in-out infinite}
-  @keyframes pray-cta-arrow{
-    0%,100%{transform:translateX(0)}
-    50%{transform:translateX(6px)}
-  }
+  @keyframes pray-cta-arrow{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
   .pray-cta .icon-wrap svg{animation:pray-cta-heart 2s ease-in-out infinite}
-  @keyframes pray-cta-heart{
-    0%,100%{transform:scale(1)}
-    50%{transform:scale(1.15)}
-  }
+  @keyframes pray-cta-heart{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
   .pray-cta:active{transform:scale(.97) !important;animation-play-state:paused}
-  /* ═══ Gallery image animations ═══ */
-  @keyframes gal-in {
-    from { opacity: 0; transform: translateY(16px) scale(.94); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
-  }
-  @keyframes gal-ken-burns {
-    0%, 100% { transform: scale(1); }
-    50%      { transform: scale(1.07); }
-  }
-  @keyframes gal-shine {
-    0%   { transform: translateX(-130%) skewX(-20deg); }
-    55%  { transform: translateX(240%) skewX(-20deg); }
-    100% { transform: translateX(240%) skewX(-20deg); }
-  }
-  .gal-item {
-    animation: gal-in .7s cubic-bezier(.34,1.56,.64,1) both;
-  }
-  .gal-item img {
-    animation: gal-ken-burns 9s ease-in-out infinite;
-  }
-  .gal-item::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 55%; height: 100%;
-    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.32) 50%, transparent 100%);
-    pointer-events: none;
-    animation: gal-shine 5.5s ease-in-out infinite;
-    z-index: 1;
-  }
-  .gal-item > div { z-index: 2; }
-  .gal-item:nth-child(1) { animation-delay: .05s; }
-  .gal-item:nth-child(2) { animation-delay: .1s; }
-  .gal-item:nth-child(3) { animation-delay: .15s; }
-  .gal-item:nth-child(4) { animation-delay: .2s; }
-  .gal-item:nth-child(5) { animation-delay: .25s; }
-  .gal-item:nth-child(6) { animation-delay: .3s; }
-  .gal-item:nth-child(7) { animation-delay: .35s; }
-  .gal-item:nth-child(8) { animation-delay: .4s; }
-  .gal-item:nth-child(9) { animation-delay: .45s; }
-  .gal-item:nth-child(10) { animation-delay: .5s; }
-  /* Orphanage hero gentle zoom */
-  #orphHero { overflow: hidden; }
-  @keyframes hero-zoom {
-    0%, 100% { transform: scale(1); }
-    50%      { transform: scale(1.06); }
-  }
-  #orphHeroImg { animation: hero-zoom 16s ease-in-out infinite; }
+  @keyframes gal-in{from{opacity:0;transform:translateY(16px) scale(.94)}to{opacity:1;transform:translateY(0) scale(1)}}
+  @keyframes gal-ken-burns{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+  @keyframes gal-shine{0%{transform:translateX(-130%) skewX(-20deg)}55%{transform:translateX(240%) skewX(-20deg)}100%{transform:translateX(240%) skewX(-20deg)}}
+  .gal-item{animation:gal-in .7s cubic-bezier(.34,1.56,.64,1) both}
+  .gal-item img{animation:gal-ken-burns 9s ease-in-out infinite}
+  .gal-item::after{content:'';position:absolute;top:0;left:0;width:55%;height:100%;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.32) 50%,transparent 100%);pointer-events:none;animation:gal-shine 5.5s ease-in-out infinite;z-index:1}
+  .gal-item > div{z-index:2}
+  .gal-item:nth-child(1){animation-delay:.05s}
+  .gal-item:nth-child(2){animation-delay:.1s}
+  .gal-item:nth-child(3){animation-delay:.15s}
+  .gal-item:nth-child(4){animation-delay:.2s}
+  .gal-item:nth-child(5){animation-delay:.25s}
+  .gal-item:nth-child(6){animation-delay:.3s}
+  .gal-item:nth-child(7){animation-delay:.35s}
+  .gal-item:nth-child(8){animation-delay:.4s}
+  .gal-item:nth-child(9){animation-delay:.45s}
+  .gal-item:nth-child(10){animation-delay:.5s}
+  #orphHero{overflow:hidden}
+  @keyframes hero-zoom{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+  #orphHeroImg{animation:hero-zoom 16s ease-in-out infinite}
 </style>
 </head>
 <body class="bg-gray-50 text-gray-900 min-h-screen">
@@ -253,14 +148,12 @@
       <p class="text-violet-100/85 text-sm mt-2 leading-relaxed">
         Support the ministry, stand with orphans, and lift up prayer requests. No sign-up needed.
       </p>
-
       <div class="mt-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-3 py-2.5">
         <p class="text-[11px] text-violet-50 leading-snug italic">
           &ldquo;Religion that God our Father accepts as pure and faultless is this: to look after orphans and widows in their distress.&rdquo;
         </p>
         <p class="text-[10px] text-amber-300 font-bold mt-1 not-italic">— James 1:27</p>
       </div>
-
       <div class="grid grid-cols-3 gap-2 mt-4">
         <button onclick="openPrayer()" class="bg-white/10 border border-white/30 text-white py-3 rounded-xl font-bold text-xs active:scale-[0.98]">Prayer</button>
         <button onclick="openOrphanage()" class="bg-amber-400 text-violet-950 py-3 rounded-xl font-bold text-xs shadow-lg active:scale-[0.98]">Orphanage</button>
@@ -384,6 +277,71 @@
   Prayer
 </button>
 
+<!-- ═══════════════ CAUSE DETAIL ═══════════════ -->
+<div id="causeView" class="hidden min-h-screen w-full bg-gray-50">
+  <header class="absolute top-0 left-0 right-0 z-40 px-5 py-3 flex items-center">
+    <button onclick="closeCause()" class="w-9 h-9 rounded-full bg-white/90 backdrop-blur shadow-lg flex items-center justify-center text-gray-700 text-lg">&larr;</button>
+    <button id="causeShareBtn" class="ml-auto w-9 h-9 rounded-full bg-white/90 backdrop-blur shadow-lg flex items-center justify-center text-violet-700">
+      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+      </svg>
+    </button>
+  </header>
+  <section class="relative min-h-[340px] flex items-end overflow-hidden">
+    <img id="causeImage" src="" alt="" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-gradient-to-t from-violet-950 via-violet-950/60 to-violet-900/20"></div>
+    <div class="max-w-md mx-auto w-full px-5 pb-6 relative z-10">
+      <div id="causeEmoji" class="w-12 h-12 rounded-2xl bg-white/95 backdrop-blur shadow-xl flex items-center justify-center text-2xl mb-3"></div>
+      <h1 id="causeTitle" class="text-white text-3xl font-extrabold leading-tight tracking-tight drop-shadow-lg">—</h1>
+      <p id="causeTagline" class="text-violet-100 text-sm mt-2 leading-relaxed">—</p>
+    </div>
+  </section>
+  <div class="max-w-md mx-auto px-5 pt-5 pb-10">
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 mb-4">
+      <h2 class="text-sm font-extrabold text-gray-900 mb-3">About this cause</h2>
+      <p id="causeDescription" class="text-[13px] text-gray-700 leading-relaxed whitespace-pre-line">—</p>
+    </div>
+    <div id="causeVerseWrap" class="bg-gradient-to-br from-amber-50 to-yellow-50 border border-amber-200 rounded-2xl p-4 mb-4">
+      <div class="flex items-start gap-3">
+        <div class="w-9 h-9 rounded-full bg-amber-400 flex items-center justify-center flex-shrink-0">
+          <svg class="w-4 h-4 text-amber-950" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+        </div>
+        <div>
+          <p id="causeVerse" class="text-[12px] text-amber-900 leading-snug italic">—</p>
+          <p id="causeVerseRef" class="text-[10px] text-amber-700 font-bold mt-1.5 not-italic">—</p>
+        </div>
+      </div>
+    </div>
+    <div id="causeImpactWrap" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 mb-5">
+      <h2 class="text-sm font-extrabold text-gray-900 mb-3">Your gift makes a difference</h2>
+      <div id="causeImpact" class="space-y-2.5"></div>
+    </div>
+    <button onclick="startGivingFromCause()" class="pray-cta w-full text-white rounded-2xl p-5 shadow-2xl active:scale-[0.98] transition-transform text-left mb-3">
+      <div class="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-amber-400/25 blur-2xl pointer-events-none"></div>
+      <div class="flex items-center gap-4">
+        <div class="icon-wrap w-12 h-12 rounded-2xl bg-white/15 backdrop-blur border border-white/25 flex items-center justify-center flex-shrink-0">
+          <svg class="w-6 h-6 text-amber-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+          </svg>
+        </div>
+        <div class="flex-1">
+          <p class="text-[10px] font-extrabold text-amber-300 uppercase tracking-wider">Ready to give?</p>
+          <p class="text-base font-extrabold leading-tight mt-0.5">Give to <span id="causeCtaLabel">this cause</span></p>
+          <p class="text-[11px] text-violet-100/85 mt-1 leading-snug">Every gift, large or small, is a blessing.</p>
+        </div>
+        <svg class="arrow w-5 h-5 text-amber-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+        </svg>
+      </div>
+    </button>
+    <button onclick="closeCause()" class="w-full text-gray-500 py-3 text-sm font-medium">
+      Back to home →
+    </button>
+  </div>
+</div>
+
 <!-- ═══════════════ GALLERY ═══════════════ -->
 <div id="galleryView" class="hidden min-h-screen w-full bg-gray-50">
   <header class="bg-white border-b border-gray-100 sticky top-0 z-40">
@@ -407,11 +365,8 @@
       <span class="font-bold text-base">Prayer Wall</span>
     </div>
   </header>
-
   <div class="max-w-md mx-auto px-5 pt-5 pb-24">
-
-    <button type="button" onclick="openPrayerForm()"
-      class="pray-cta w-full text-white rounded-2xl p-5 shadow-2xl active:scale-[0.98] transition-transform text-left mb-5">
+    <button type="button" onclick="openPrayerForm()" class="pray-cta w-full text-white rounded-2xl p-5 shadow-2xl active:scale-[0.98] transition-transform text-left mb-5">
       <div class="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-amber-400/25 blur-2xl pointer-events-none"></div>
       <div class="flex items-center gap-4">
         <div class="icon-wrap w-14 h-14 rounded-2xl bg-white/15 backdrop-blur border border-white/25 flex items-center justify-center flex-shrink-0">
@@ -429,14 +384,12 @@
         </svg>
       </div>
     </button>
-
     <div class="bg-gradient-to-br from-violet-800 to-violet-950 text-white rounded-2xl p-4 mb-4">
       <p class="text-xs opacity-90 leading-snug italic">
         &ldquo;Confess your sins to each other and pray for each other so that you may be healed. The prayer of a righteous person is powerful and effective.&rdquo;
       </p>
       <p class="text-[10px] text-amber-300 font-bold mt-2 not-italic">— James 5:16</p>
     </div>
-
     <div id="prayerList" class="space-y-2.5"></div>
     <p id="prayerEmpty" class="hidden text-center text-sm text-gray-400 py-16">No public prayer requests yet.</p>
   </div>
@@ -450,7 +403,6 @@
       <span class="font-bold text-base">Prayer Request</span>
     </div>
   </header>
-
   <div class="max-w-md mx-auto px-5 pt-5 pb-10">
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
       <div class="w-14 h-14 rounded-full bg-violet-100 flex items-center justify-center mx-auto mb-3">
@@ -460,7 +412,6 @@
       </div>
       <h2 class="text-lg font-bold text-center">Share your need</h2>
       <p class="text-xs text-gray-500 text-center mt-1 leading-relaxed">Our prayer team will stand with you.</p>
-
       <div class="mt-5">
         <p class="text-[10px] font-extrabold text-violet-700 uppercase tracking-wider mb-2">About you</p>
         <div class="space-y-3.5">
@@ -501,7 +452,6 @@
           </div>
         </div>
       </div>
-
       <div class="mt-5">
         <p class="text-[10px] font-extrabold text-violet-700 uppercase tracking-wider mb-2">About the request</p>
         <div class="space-y-3.5">
@@ -533,7 +483,6 @@
           </div>
         </div>
       </div>
-
       <div class="mt-5">
         <p class="text-[10px] font-extrabold text-violet-700 uppercase tracking-wider mb-2">Preferences</p>
         <div class="space-y-3">
@@ -552,9 +501,7 @@
           </label>
         </div>
       </div>
-
       <div id="prError" class="hidden mt-4 bg-red-50 border border-red-100 text-red-800 text-sm rounded-lg p-3"></div>
-
       <button id="prBtn" onclick="submitPrayer()" class="mt-5 w-full bg-violet-800 text-white py-3.5 rounded-xl hover:bg-violet-900 font-semibold text-sm flex items-center justify-center gap-2">
         <span id="prBtnText">Submit Prayer Request</span>
       </button>
@@ -566,7 +513,6 @@
 <!-- ═══════════════ PRAYER THANKS ═══════════════ -->
 <div id="prayerThanksView" class="hidden min-h-screen w-full bg-gray-50">
   <div class="max-w-md mx-auto px-5 pt-6 pb-10">
-
     <div class="text-center mb-4 success-bounce">
       <div class="w-16 h-16 rounded-full bg-violet-100 flex items-center justify-center mx-auto mb-2">
         <svg class="w-8 h-8 text-violet-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.6">
@@ -576,15 +522,11 @@
       <h1 class="text-xl font-extrabold text-gray-900">Prayer Received</h1>
       <p class="text-xs text-gray-500 mt-1 leading-relaxed" id="prThanksLine">Our team will lift your request before the Lord.</p>
     </div>
-
     <div class="text-center mb-4">
       <h2 class="text-lg font-extrabold text-gray-900 leading-tight">A little donation will help</h2>
       <p class="text-[11px] text-gray-500 mt-1 leading-snug">Entirely optional — your prayer is already received and you are loved either way.</p>
     </div>
-
-    <button type="button" onclick="giveFromPrayer('Offering')"
-      class="appeal-card delay-1 mb-3"
-      style="background:linear-gradient(135deg,#7c3aed 0%,#5b21b6 55%,#3b0764 100%);color:#fff;">
+    <button type="button" onclick="giveFromPrayer('Offering')" class="appeal-card delay-1 mb-3" style="background:linear-gradient(135deg,#7c3aed 0%,#5b21b6 55%,#3b0764 100%);color:#fff;">
       <div class="absolute -top-8 -right-6 w-32 h-32 rounded-full bg-amber-400/25 blur-2xl pointer-events-none"></div>
       <div class="icon-wrap" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);">
         <svg class="w-7 h-7 text-amber-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
@@ -592,18 +534,13 @@
         </svg>
       </div>
       <div class="flex-1">
-        <div class="inline-block px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wider mb-1" style="background:rgba(251,191,36,.95);color:#451a03;">We need your help.</div>
+        <div class="inline-block px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wider mb-1" style="background:rgba(251,191,36,.95);color:#451a03;">God bless your hands.</div>
         <h3>Support the Ministry</h3>
         <p>Keep the Gospel going — crusades, missions, and the daily work of the church.</p>
       </div>
-      <svg class="arrow w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
-      </svg>
+      <svg class="arrow w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
     </button>
-
-    <button type="button" onclick="giveFromPrayer('Orphanage')"
-      class="appeal-card delay-2 mb-4"
-      style="background:linear-gradient(135deg,#fbbf24 0%,#f59e0b 55%,#b45309 100%);color:#451a03;">
+    <button type="button" onclick="giveFromPrayer('Orphanage')" class="appeal-card delay-2 mb-4" style="background:linear-gradient(135deg,#fbbf24 0%,#f59e0b 55%,#b45309 100%);color:#451a03;">
       <div class="absolute -top-8 -right-6 w-32 h-32 rounded-full bg-white/30 blur-2xl pointer-events-none"></div>
       <div class="icon-wrap" style="background:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.6);">
         <svg class="w-7 h-7" style="color:#78350f" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
@@ -615,21 +552,15 @@
         <h3>Support the Orphanage</h3>
         <p>Feed, clothe and educate a child in our care — one meal at a time.</p>
       </div>
-      <svg class="arrow w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
-      </svg>
+      <svg class="arrow w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
     </button>
-
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-3.5 mb-4">
       <p class="text-center text-[12px] text-gray-700 italic leading-relaxed">
         &ldquo;Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God.&rdquo;
       </p>
       <p class="text-center text-[10px] text-violet-700 font-bold mt-1.5">— Philippians 4:6</p>
     </div>
-
-    <button type="button" onclick="showView('homeView')" class="w-full text-gray-500 py-3 text-sm font-medium">
-      Maybe later →
-    </button>
+    <button type="button" onclick="showView('homeView')" class="w-full text-gray-500 py-3 text-sm font-medium">Maybe later →</button>
   </div>
 </div>
 
@@ -641,11 +572,9 @@
       <span class="font-bold text-base">Orphanage Fund</span>
     </div>
   </header>
-
   <section id="orphHero" class="relative px-5 pt-16 pb-8 min-h-[420px] flex items-end" style="background:linear-gradient(135deg,#f59e0b 0%,#b45309 100%)">
     <div id="orphHeroImg" class="absolute inset-0 bg-cover bg-center transition-opacity duration-700 opacity-0"></div>
     <div class="absolute inset-0 bg-gradient-to-t from-violet-950 via-violet-950/70 to-violet-900/30"></div>
-
     <div class="max-w-md mx-auto w-full relative z-10">
       <div class="inline-flex items-center gap-1.5 bg-amber-400/95 text-amber-950 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full mb-3">
         <span class="w-1.5 h-1.5 rounded-full bg-violet-900"></span>
@@ -657,7 +586,6 @@
       <p class="text-[13px] text-violet-100 mt-2 leading-relaxed">
         Every child deserves a home, a meal and a chance to learn. You make that possible.
       </p>
-
       <div class="mt-5 bg-white/10 backdrop-blur-md border border-white/25 rounded-2xl p-3.5">
         <svg class="w-5 h-5 text-amber-300 mb-1.5" fill="currentColor" viewBox="0 0 24 24">
           <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z"/>
@@ -669,7 +597,6 @@
       </div>
     </div>
   </section>
-
   <section class="max-w-md mx-auto px-5 -mt-6 relative z-20">
     <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-4">
       <p class="text-[10px] font-bold text-gray-500 uppercase tracking-wider">This month's goal</p>
@@ -684,7 +611,6 @@
       </button>
     </div>
   </section>
-
   <section class="max-w-md mx-auto px-5 mt-6">
     <div class="bg-gradient-to-br from-amber-50 to-yellow-50 border border-amber-200 rounded-2xl p-4">
       <div class="flex items-start gap-3">
@@ -702,12 +628,10 @@
       </div>
     </div>
   </section>
-
   <section class="max-w-md mx-auto px-5 mt-6">
     <h2 class="text-sm font-bold text-gray-800 mb-3">Life at the home</h2>
     <div id="orphanageGallery" class="gal-grid"></div>
   </section>
-
   <section class="max-w-md mx-auto px-5 mt-6 pb-10">
     <h2 class="text-sm font-bold text-gray-800 mb-3">What your gift provides</h2>
     <div class="space-y-2.5">
@@ -743,7 +667,6 @@
       <span class="font-bold text-base">Give</span>
     </div>
   </header>
-
   <div class="max-w-md mx-auto px-5 pt-5">
     <div class="flex items-center gap-1.5">
       <div class="wizard-dot active w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-bold" data-step="1">1</div>
@@ -755,12 +678,10 @@
     <p class="text-[11px] text-gray-500 mt-2" id="stepLabel">Step 1 of 3 — Amount &amp; purpose</p>
     <p id="wizError" class="hidden mt-3 text-red-600 text-xs font-medium"></p>
   </div>
-
   <div class="wizard-step active max-w-md mx-auto px-5 pt-4" data-step="1">
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
       <h2 class="text-base font-bold mb-1">How much would you like to give?</h2>
       <p class="text-[11px] text-gray-500 mb-3">Every gift, large or small, is a blessing.</p>
-
       <div class="mb-4 bg-violet-50 border border-violet-200 rounded-xl p-3 flex items-start gap-2.5">
         <svg class="w-4 h-4 text-violet-700 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
@@ -772,10 +693,8 @@
           <p class="text-[10px] text-violet-600 font-semibold mt-1">— 2 Corinthians 9:7</p>
         </div>
       </div>
-
       <div id="wizAmounts" class="grid grid-cols-4 gap-2 mb-2"></div>
       <p class="text-[10px] text-gray-400 text-center mb-4">Tap a preset, or type your own amount below.</p>
-
       <label class="fld-lbl">Enter your own amount</label>
       <div class="flex items-center border border-gray-200 bg-gray-50 rounded-xl px-3 focus-within:bg-white focus-within:border-violet-500 transition-colors">
         <span class="text-sm text-gray-400 font-medium mr-2">KSh</span>
@@ -789,7 +708,6 @@
       <button onclick="closeWizard()" class="mt-2 w-full text-gray-500 py-2 text-xs font-medium">I'll give another time →</button>
     </div>
   </div>
-
   <div class="wizard-step max-w-md mx-auto px-5 pt-4" data-step="2">
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
       <h2 class="text-base font-bold mb-4">Your details</h2>
@@ -798,7 +716,6 @@
           <label class="fld-lbl">Full Name <span class="text-red-500">*</span></label>
           <input type="text" id="donorName" class="fld" />
         </div>
-
         <div class="bg-emerald-50 border-2 border-emerald-300 rounded-xl p-3.5">
           <div class="flex items-center gap-2 mb-2">
             <div class="w-6 h-6 rounded-full bg-emerald-600 flex items-center justify-center flex-shrink-0">
@@ -813,7 +730,6 @@
           </p>
           <input type="tel" id="donorPhone" inputmode="numeric" placeholder="07XX XXX XXX" class="w-full border border-emerald-200 bg-white rounded-xl px-3 py-3 text-sm font-mono outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 transition-colors" />
         </div>
-
         <div>
           <label class="fld-lbl">Note <span class="text-gray-400 font-normal">(optional)</span></label>
           <input type="text" id="donorNote" maxlength="120" placeholder="e.g. Thanksgiving for a new job" class="fld" />
@@ -829,7 +745,6 @@
       </div>
     </div>
   </div>
-
   <div class="wizard-step max-w-md mx-auto px-5 pt-4" data-step="3">
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
       <h2 class="text-base font-bold mb-4">Confirm your gift</h2>
@@ -841,7 +756,6 @@
           <span class="text-xl font-extrabold text-violet-800" id="rvAmount">—</span>
         </div>
       </div>
-
       <div class="mb-4 bg-emerald-50 border-2 border-emerald-300 rounded-xl p-3.5">
         <div class="flex items-center gap-2 mb-1.5">
           <div class="w-6 h-6 rounded-full bg-emerald-600 flex items-center justify-center flex-shrink-0">
@@ -856,7 +770,6 @@
           You'll get a prompt on this M-Pesa number. Enter your PIN to complete the gift. The full amount goes to the ministry.
         </p>
       </div>
-
       <div id="submitError" class="hidden bg-red-50 border border-red-100 text-red-800 text-sm rounded-lg p-3 mb-4"></div>
       <div class="flex gap-2">
         <button onclick="wizardBack(2)" class="flex-1 bg-white border border-gray-200 text-gray-700 py-3 rounded-xl font-semibold text-sm">Back</button>
@@ -868,10 +781,9 @@
   </div>
 </div>
 
-<!-- ═══════════════ STK SENT (wait screen) ═══════════════ -->
+<!-- ═══════════════ STK SENT ═══════════════ -->
 <div id="sentView" class="hidden min-h-screen w-full bg-gradient-to-br from-violet-900 via-violet-950 to-black flex items-center justify-center p-5">
   <div class="w-full max-w-sm bg-white rounded-3xl shadow-2xl p-6 text-center float-up-anim">
-
     <div class="relative inline-block mb-4">
       <div class="pulse-ring-light relative w-20 h-20 rounded-full bg-violet-50 border-2 border-violet-100 flex items-center justify-center mx-auto">
         <svg class="w-10 h-10 text-violet-700 relative z-10 phone-wiggle" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
@@ -879,12 +791,10 @@
         </svg>
       </div>
     </div>
-
     <h2 class="text-xl font-extrabold text-gray-900 leading-tight">Check your phone</h2>
     <p class="text-sm text-gray-600 mt-2 leading-snug px-1">
       We've sent an M-Pesa prompt to your phone. Enter your PIN to complete your gift.
     </p>
-
     <div class="mt-5 bg-violet-50 border border-violet-200 rounded-2xl p-4">
       <div class="flex items-center justify-center gap-1.5 mb-2.5">
         <span class="w-2 h-2 rounded-full bg-violet-600 dot-fade" style="animation-delay:0s"></span>
@@ -896,16 +806,13 @@
         Do not close this page. Your receipt will appear here the moment payment is confirmed.
       </p>
     </div>
-
     <div class="mt-5">
       <div class="h-1.5 bg-gray-100 rounded-full overflow-hidden">
         <div id="sentProgressBar" class="h-full bg-gradient-to-r from-violet-500 to-violet-700 rounded-full" style="width:0%;transition:width 1s linear"></div>
       </div>
       <p id="sentStatusText" class="text-[10px] text-gray-500 mt-2">Waiting for M-Pesa confirmation…</p>
     </div>
-
     <p id="sentRef" class="mt-3 text-[10px] text-gray-400 font-mono"></p>
-
     <div class="mt-5 pt-4 border-t border-gray-100 flex items-start gap-2 text-left">
       <svg class="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24">
         <path d="M12 2l2.09 6.26L20 9.27l-4.5 4.13L17 20l-5-3-5 3 1.5-6.6L4 9.27l5.91-1.01L12 2z"/>
@@ -914,14 +821,13 @@
         This usually takes under a minute. If the prompt does not appear on your phone, please check your network and try again from the beginning.
       </p>
     </div>
-
     <button id="sentRetryBtn" onclick="cancelWaiting()" class="mt-5 w-full bg-gray-100 text-gray-500 py-2.5 rounded-xl font-semibold text-[11px] hidden">
       Prompt didn't arrive? Try again
     </button>
   </div>
 </div>
 
-<!-- ═══════════════ RECEIPT / THANK YOU ═══════════════ -->
+<!-- ═══════════════ RECEIPT ═══════════════ -->
 <div id="receiptView" class="hidden min-h-screen w-full bg-gradient-to-br from-violet-700 via-violet-800 to-violet-950 flex items-center justify-center p-5">
   <div class="w-full max-w-md">
     <div class="text-center mb-5 success-bounce">
@@ -935,7 +841,6 @@
       <h1 class="text-white text-3xl font-extrabold mt-5 tracking-tight">Asante Sana!</h1>
       <p class="text-violet-100 text-sm mt-2 font-medium" id="rcThankLine">Your gift has been received</p>
     </div>
-
     <div class="bg-white rounded-3xl shadow-2xl p-6 mb-4 float-up-anim">
       <div class="text-center mb-4">
         <div class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-100 to-yellow-100 border border-amber-300 text-amber-900 px-4 py-1.5 rounded-full">
@@ -961,7 +866,6 @@
         <div class="flex justify-between border-t border-gray-100 pt-2.5"><span class="text-gray-500 text-xs">Date</span><span class="font-medium text-[12px]" id="rcDate">—</span></div>
       </div>
     </div>
-
     <div class="bg-amber-50/95 border border-amber-300 rounded-2xl p-4 mb-4 flex items-start gap-3 shadow-lg">
       <div class="w-9 h-9 rounded-full bg-amber-400 flex items-center justify-center flex-shrink-0">
         <svg class="w-4 h-4 text-amber-950" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -973,7 +877,6 @@
         <p class="text-[11px] text-amber-800 mt-0.5 leading-relaxed"><span id="rcThankNote">Your generosity will go a long way.</span></p>
       </div>
     </div>
-
     <div class="flex gap-2">
       <button onclick="showView('homeView')" class="flex-1 bg-white/15 border border-white/30 text-white py-3.5 rounded-xl font-bold text-sm">Home</button>
       <button onclick="shareReceipt()" class="flex-1 bg-white text-violet-800 py-3.5 rounded-xl font-bold text-sm">Share</button>
@@ -1020,7 +923,8 @@
       <button onclick="adminLogout()" class="ml-auto text-[11px] text-red-600 border border-red-200 px-3 py-1.5 rounded-lg">Lock</button>
     </div>
     <div class="max-w-md mx-auto px-5 pb-3 flex gap-1.5 overflow-x-auto">
-      <button class="tab active" data-tab="gallery" onclick="switchAdminTab('gallery')">Photos</button>
+      <button class="tab active" data-tab="causes" onclick="switchAdminTab('causes')">Causes</button>
+      <button class="tab" data-tab="gallery" onclick="switchAdminTab('gallery')">Photos</button>
       <button class="tab" data-tab="prayers" onclick="switchAdminTab('prayers')">Prayers</button>
       <button class="tab" data-tab="donations" onclick="switchAdminTab('donations')">Donations</button>
       <button class="tab" data-tab="settings" onclick="switchAdminTab('settings')">Settings</button>
@@ -1028,24 +932,93 @@
   </header>
 
   <div class="max-w-md mx-auto px-5 py-5 pb-20">
-    <div id="adminTab-gallery">
+
+    <!-- CAUSES TAB -->
+    <div id="adminTab-causes">
+      <div class="admin-card mb-4">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="font-bold text-sm">Your Causes</h3>
+          <button onclick="openCauseForm()" class="text-[11px] font-bold text-white bg-violet-800 px-3 py-1.5 rounded-full">+ New Cause</button>
+        </div>
+        <p class="text-[11px] text-gray-500 mb-3">Create a cause once, then share its unique link anywhere. Anyone who taps the link lands directly on that cause's page.</p>
+        <div id="adminCauseList" class="space-y-3 text-sm"></div>
+      </div>
+
+      <div id="causeFormCard" class="admin-card hidden">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="font-bold text-sm" id="causeFormTitle">New Cause</h3>
+          <button onclick="closeCauseForm()" class="text-gray-500 text-xs">Cancel</button>
+        </div>
+
+        <label class="fld-lbl">Title</label>
+        <input type="text" id="cfTitle" placeholder="e.g. Building Fund 2026" class="fld" />
+
+        <label class="fld-lbl mt-3">URL slug</label>
+        <div class="flex items-center gap-2">
+          <span class="text-[10px] text-gray-400 font-mono whitespace-nowrap">#cause/</span>
+          <input type="text" id="cfSlug" placeholder="building-fund-2026" class="fld font-mono text-xs flex-1" />
+        </div>
+        <p class="text-[10px] text-gray-400 mt-1">Auto-filled from title. Lowercase, numbers, hyphens only.</p>
+
+        <label class="fld-lbl mt-3">Emoji</label>
+        <input type="text" id="cfEmoji" placeholder="🏛️" maxlength="4" class="fld text-center text-2xl" />
+
+        <label class="fld-lbl mt-3">Tagline (short subtitle)</label>
+        <input type="text" id="cfTagline" placeholder="Build a house where His presence dwells." class="fld" />
+
+        <label class="fld-lbl mt-3">Image URL</label>
+        <input type="url" id="cfImage" placeholder="https://..." class="fld font-mono text-xs" />
+        <div id="cfImagePreview" class="hidden mt-2">
+          <img id="cfImageEl" class="w-full rounded-xl border border-gray-200 max-h-40 object-cover" />
+        </div>
+
+        <label class="fld-lbl mt-3">Description</label>
+        <textarea id="cfDescription" rows="6" placeholder="Describe what this cause is about..." class="fld resize-none"></textarea>
+
+        <label class="fld-lbl mt-3">Scripture verse</label>
+        <textarea id="cfVerse" rows="3" placeholder='"Unless the Lord builds the house..."' class="fld resize-none"></textarea>
+        <input type="text" id="cfVerseRef" placeholder="— Psalm 127:1" class="fld mt-2" />
+
+        <label class="fld-lbl mt-4">"Your gift makes a difference" — up to 3 items</label>
+        <div class="space-y-2">
+          <div class="flex gap-2">
+            <input type="text" id="cfImpact1Icon" maxlength="4" placeholder="🧱" class="fld text-center text-lg" style="max-width:4rem" />
+            <input type="text" id="cfImpact1Text" placeholder="Constructs and expands the sanctuary" class="fld flex-1" />
+          </div>
+          <div class="flex gap-2">
+            <input type="text" id="cfImpact2Icon" maxlength="4" placeholder="🪑" class="fld text-center text-lg" style="max-width:4rem" />
+            <input type="text" id="cfImpact2Text" placeholder="Provides seating and comfort" class="fld flex-1" />
+          </div>
+          <div class="flex gap-2">
+            <input type="text" id="cfImpact3Icon" maxlength="4" placeholder="🏗️" class="fld text-center text-lg" style="max-width:4rem" />
+            <input type="text" id="cfImpact3Text" placeholder="Maintains the building for the future" class="fld flex-1" />
+          </div>
+        </div>
+
+        <label class="flex items-center gap-2 mt-4 text-xs text-gray-700 cursor-pointer">
+          <input type="checkbox" id="cfActive" checked class="w-4 h-4" />
+          <span>Active — anyone with the link can view and give</span>
+        </label>
+
+        <div id="cfError" class="hidden mt-3 text-xs text-red-600 bg-red-50 border border-red-100 rounded-lg p-2.5"></div>
+
+        <button id="cfSaveBtn" onclick="saveCause()" class="mt-4 w-full bg-violet-800 text-white py-3 rounded-xl font-semibold text-sm">Save Cause</button>
+      </div>
+    </div>
+
+    <!-- GALLERY TAB -->
+    <div id="adminTab-gallery" class="hidden">
       <div class="admin-card mb-4">
         <h3 class="font-bold text-sm mb-2">Add a photo</h3>
         <p class="text-[11px] text-gray-500 mb-3">Paste a direct image link from Imgur, Cloudinary, or any image host.</p>
-
         <label class="fld-lbl">Photo URL <span class="text-red-500">*</span></label>
         <input type="url" id="imgUrl" placeholder="https://i.imgur.com/abc123.jpg" class="fld font-mono text-xs" />
-        <div id="imgUrlPreview" class="hidden mt-3">
-          <img id="imgPreviewEl" class="w-full rounded-xl border border-gray-200 max-h-64 object-cover" />
-        </div>
+        <div id="imgUrlPreview" class="hidden mt-3"><img id="imgPreviewEl" class="w-full rounded-xl border border-gray-200 max-h-64 object-cover" /></div>
         <p id="imgUrlError" class="hidden mt-2 text-[11px] text-red-600 font-medium"></p>
-
         <label class="fld-lbl mt-3">Title</label>
         <input type="text" id="imgTitle" placeholder="e.g. Sunday service" class="fld" />
-
         <label class="fld-lbl mt-3">Description (optional)</label>
         <textarea id="imgDesc" rows="2" placeholder="Short description" class="fld resize-none"></textarea>
-
         <label class="fld-lbl mt-3">Category</label>
         <select id="imgCat" class="fld">
           <option value="orphanage">Orphanage</option>
@@ -1053,17 +1026,16 @@
           <option value="ministry">Ministry</option>
           <option value="events">Events</option>
         </select>
-
         <button id="saveImgBtn" onclick="saveImageUrl()" class="mt-4 w-full bg-violet-800 text-white py-3 rounded-xl font-semibold text-sm">Save Photo</button>
         <button onclick="clearImageForm()" class="mt-2 w-full bg-gray-100 text-gray-600 py-2.5 rounded-xl font-semibold text-xs">Clear</button>
       </div>
-
       <div class="admin-card">
         <h3 class="font-bold text-sm mb-3">Current photos</h3>
         <div id="adminGalleryList" class="space-y-2 text-sm"></div>
       </div>
     </div>
 
+    <!-- PRAYERS TAB -->
     <div id="adminTab-prayers" class="hidden">
       <div class="admin-card mb-4">
         <div class="flex items-center justify-between">
@@ -1078,6 +1050,7 @@
       <div id="adminPrayerList" class="space-y-2.5"></div>
     </div>
 
+    <!-- DONATIONS TAB -->
     <div id="adminTab-donations" class="hidden">
       <div class="grid grid-cols-2 gap-2 mb-4">
         <div class="admin-card"><p class="text-[10px] font-bold text-gray-500 uppercase">Total received</p><p class="text-lg font-extrabold text-violet-800 mt-1" id="adTotal">—</p></div>
@@ -1091,6 +1064,7 @@
       </div>
     </div>
 
+    <!-- SETTINGS TAB -->
     <div id="adminTab-settings" class="hidden">
       <div class="admin-card mb-4">
         <h3 class="font-bold text-sm mb-2">Orphanage fund</h3>
@@ -1159,6 +1133,8 @@ let currentGalleryFilter = 'all';
 let prayerFilter = 'all';
 let siteSettings = { orphanage_goal: 100000, ministry_name: 'Kakande Ministries', admin_passcode: DEFAULT_ADMIN_PIN };
 let logoClicks = 0, logoTimer = null, footerClicks = 0, footerTimer = null;
+let activeCause = null;
+let editingCauseId = null;
 
 const fmt = (n) => CURRENCY + ' ' + Number(n || 0).toLocaleString('en-KE', { maximumFractionDigits: 0 });
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c =>
@@ -1195,7 +1171,7 @@ function formatPhoneDisplay(input) {
   return `+${p.slice(0,3)} ${p.slice(3,6)} ${p.slice(6,9)} ${p.slice(9)}`;
 }
 
-const VIEWS = ['homeView','galleryView','prayerView','prayerFormView','prayerThanksView','orphanageView',
+const VIEWS = ['homeView','causeView','galleryView','prayerView','prayerFormView','prayerThanksView','orphanageView',
   'wizardView','sentView','receiptView','adminGateView','adminView'];
 
 function updateFab() {
@@ -1222,6 +1198,309 @@ function makeRef() {
   return `KM${stamp}${Math.floor(Math.random() * 9000 + 1000)}`;
 }
 
+/* ═══ ROUTER ═══ */
+window.addEventListener('hashchange', handleHashRoute);
+
+function handleHashRoute() {
+  const raw = (location.hash || '').replace('#','').toLowerCase();
+  if (!raw) return;
+
+  if (raw === 'admin' || raw === 'ministry-admin' || raw === 'ministry') { openAdminGate(); return; }
+  if (raw === 'give') { startGiving(); return; }
+  if (raw === 'orphanage') { openOrphanage(); return; }
+  if (raw === 'prayer') { openPrayer(); return; }
+  if (raw === 'pray') { openPrayerForm(); return; }
+  if (raw === 'gallery') { openGallery(); return; }
+
+  if (raw.startsWith('cause/')) {
+    const slug = raw.slice(6);
+    if (slug) { openCause(slug); return; }
+  }
+}
+
+/* ═══ PUBLIC CAUSE PAGE ═══ */
+async function openCause(slug) {
+  const { data, error } = await sb.from('causes')
+    .select('*').eq('slug', slug).eq('active', true).maybeSingle();
+
+  if (error || !data) {
+    showToast('Cause not found or no longer active', 'error');
+    showView('homeView');
+    return;
+  }
+
+  activeCause = data;
+
+  $('causeImage').src = data.image_url || '';
+  $('causeImage').alt = data.title || '';
+  $('causeEmoji').textContent = data.emoji || '❤️';
+  $('causeTitle').textContent = data.title || '';
+  $('causeTagline').textContent = data.tagline || '';
+  $('causeDescription').textContent = data.description || '';
+  $('causeVerse').textContent = data.verse || '';
+  $('causeVerseRef').textContent = data.verse_ref || '';
+  $('causeCtaLabel').textContent = data.title || 'this cause';
+
+  const impact = Array.isArray(data.impact) ? data.impact : [];
+  if (impact.length) {
+    $('causeImpact').innerHTML = impact.map(i => `
+      <div class="flex items-start gap-3 bg-gray-50 rounded-xl p-3">
+        <div class="w-8 h-8 rounded-lg bg-violet-100 flex items-center justify-center flex-shrink-0 text-base">${esc(i.icon || '✨')}</div>
+        <p class="text-[12px] text-gray-700 leading-snug pt-0.5">${esc(i.text || '')}</p>
+      </div>
+    `).join('');
+    $('causeImpactWrap').classList.remove('hidden');
+  } else {
+    $('causeImpactWrap').classList.add('hidden');
+  }
+
+  const verseWrap = $('causeVerseWrap');
+  if (!data.verse && !data.verse_ref) verseWrap.classList.add('hidden');
+  else verseWrap.classList.remove('hidden');
+
+  $('causeShareBtn').onclick = () => shareCurrentCause();
+
+  showView('causeView');
+}
+
+function shareCurrentCause() {
+  if (!activeCause) return;
+  const url = location.origin + location.pathname + '#cause/' + activeCause.slug;
+  const text = `Support ${activeCause.title} at Kakande Ministries`;
+  if (navigator.share) {
+    navigator.share({ title: activeCause.title, text, url }).catch(() => {});
+  } else {
+    navigator.clipboard?.writeText(text + '\n' + url).then(
+      () => showToast('Link copied', 'success'),
+      () => showToast('Could not copy', 'error')
+    );
+  }
+}
+
+function closeCause() {
+  if (location.hash.startsWith('#cause')) history.replaceState(null, '', location.pathname);
+  activeCause = null;
+  showView('homeView');
+}
+
+function startGivingFromCause() {
+  if (!activeCause) { startGiving(); return; }
+  state.purpose = activeCause.title;
+  state.amount = null;
+  wizardStep = 1;
+  renderWizardAmounts();
+  renderPurposes();
+  $('customAmount').value = '';
+  updateWizardUI();
+  showView('wizardView');
+}
+
+/* ═══ ADMIN: CAUSE CRUD ═══ */
+async function adminLoadCauses() {
+  const { data } = await sb.from('causes').select('*').order('created_at', { ascending: false });
+  const items = data || [];
+  const c = $('adminCauseList');
+  if (!items.length) {
+    c.innerHTML = '<p class="text-xs text-gray-400 py-3 text-center">No causes yet. Tap "+ New Cause" to create one.</p>';
+    return;
+  }
+  c.innerHTML = items.map(cause => {
+    const url = location.origin + location.pathname + '#cause/' + cause.slug;
+    return `
+      <div class="border border-gray-100 rounded-lg p-3">
+        <div class="flex items-start gap-3 mb-2.5">
+          <div class="w-11 h-11 rounded-lg bg-violet-100 flex items-center justify-center text-xl flex-shrink-0">${esc(cause.emoji || '❤️')}</div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+              <p class="text-xs font-bold text-gray-900">${esc(cause.title)}</p>
+              ${cause.active ? '' : '<span class="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-600">Inactive</span>'}
+            </div>
+            <p class="text-[10px] text-gray-500 mt-0.5">${esc(cause.tagline || '')}</p>
+          </div>
+        </div>
+        <div class="bg-gray-50 rounded-lg p-2 mb-2.5">
+          <p class="text-[9px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">Share this link</p>
+          <p class="text-[10px] font-mono text-violet-700 break-all" id="causeUrl-${cause.id}">${esc(url)}</p>
+        </div>
+        <div class="flex gap-1.5 flex-wrap">
+          <button onclick="copyCauseUrl('${cause.id}')" class="flex-1 text-[10px] font-bold text-violet-700 bg-violet-50 py-2 rounded-lg">Copy Link</button>
+          <button onclick="shareCauseBySlug('${esc(cause.slug)}')" class="flex-1 text-[10px] font-bold text-violet-700 bg-violet-50 py-2 rounded-lg">Share</button>
+          <button onclick="openCauseForm('${cause.id}')" class="text-[10px] font-bold text-gray-700 bg-gray-100 px-3 py-2 rounded-lg">Edit</button>
+          <button onclick="deleteCause('${cause.id}')" class="text-[10px] font-bold text-red-600 bg-red-50 px-3 py-2 rounded-lg">Delete</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function copyCauseUrl(id) {
+  const el = $('causeUrl-' + id);
+  if (!el) return;
+  navigator.clipboard?.writeText(el.textContent).then(
+    () => showToast('Link copied — paste anywhere', 'success'),
+    () => showToast('Could not copy', 'error')
+  );
+}
+
+function shareCauseBySlug(slug) {
+  const url = location.origin + location.pathname + '#cause/' + slug;
+  const text = 'Support this cause at Kakande Ministries';
+  if (navigator.share) {
+    navigator.share({ title: 'Kakande Ministries', text, url }).catch(() => {});
+  } else {
+    navigator.clipboard?.writeText(text + '\n' + url).then(
+      () => showToast('Link copied', 'success'),
+      () => showToast('Could not copy', 'error')
+    );
+  }
+}
+
+function slugify(str) {
+  return String(str || '').toLowerCase().trim()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+async function openCauseForm(id) {
+  editingCauseId = id || null;
+  $('causeFormTitle').textContent = id ? 'Edit Cause' : 'New Cause';
+  $('cfError').classList.add('hidden');
+
+  ['cfTitle','cfSlug','cfEmoji','cfTagline','cfImage','cfDescription','cfVerse','cfVerseRef',
+   'cfImpact1Icon','cfImpact1Text','cfImpact2Icon','cfImpact2Text','cfImpact3Icon','cfImpact3Text']
+   .forEach(i => { const el = $(i); if (el) { el.value = ''; delete el.dataset.touched; } });
+  $('cfActive').checked = true;
+  $('cfImagePreview').classList.add('hidden');
+
+  if (id) {
+    const { data } = await sb.from('causes').select('*').eq('id', id).maybeSingle();
+    if (!data) { showToast('Cause not found', 'error'); return; }
+    $('cfTitle').value = data.title || '';
+    $('cfSlug').value = data.slug || '';
+    $('cfSlug').dataset.touched = '1';
+    $('cfEmoji').value = data.emoji || '';
+    $('cfTagline').value = data.tagline || '';
+    $('cfImage').value = data.image_url || '';
+    $('cfDescription').value = data.description || '';
+    $('cfVerse').value = data.verse || '';
+    $('cfVerseRef').value = data.verse_ref || '';
+    const impact = Array.isArray(data.impact) ? data.impact : [];
+    for (let i = 0; i < 3; i++) {
+      const it = impact[i];
+      if (it) {
+        $('cfImpact' + (i+1) + 'Icon').value = it.icon || '';
+        $('cfImpact' + (i+1) + 'Text').value = it.text || '';
+      }
+    }
+    $('cfActive').checked = data.active !== false;
+    if (data.image_url) {
+      $('cfImageEl').src = data.image_url;
+      $('cfImagePreview').classList.remove('hidden');
+    }
+  }
+
+  $('causeFormCard').classList.remove('hidden');
+  $('causeFormCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function closeCauseForm() {
+  $('causeFormCard').classList.add('hidden');
+  editingCauseId = null;
+}
+
+document.addEventListener('input', (e) => {
+  if (e.target.id === 'cfTitle') {
+    const slugEl = $('cfSlug');
+    if (slugEl && !slugEl.dataset.touched) slugEl.value = slugify(e.target.value);
+  }
+  if (e.target.id === 'cfSlug') {
+    e.target.dataset.touched = '1';
+    e.target.value = slugify(e.target.value);
+  }
+  if (e.target.id === 'cfImage') {
+    const url = e.target.value.trim();
+    const wrap = $('cfImagePreview');
+    const img = $('cfImageEl');
+    if (!url || !/^https?:\/\//i.test(url)) { wrap.classList.add('hidden'); return; }
+    img.onload = () => wrap.classList.remove('hidden');
+    img.onerror = () => wrap.classList.add('hidden');
+    img.src = url;
+  }
+});
+
+async function saveCause() {
+  const btn = $('cfSaveBtn');
+  const err = $('cfError');
+  err.classList.add('hidden');
+
+  const title = $('cfTitle').value.trim();
+  const slug = slugify($('cfSlug').value.trim() || title);
+  const emoji = $('cfEmoji').value.trim() || '❤️';
+  const tagline = $('cfTagline').value.trim();
+  const image_url = $('cfImage').value.trim();
+  const description = $('cfDescription').value.trim();
+  const verse = $('cfVerse').value.trim();
+  const verse_ref = $('cfVerseRef').value.trim();
+  const active = $('cfActive').checked;
+
+  if (!title) { err.textContent = 'Please enter a title.'; err.classList.remove('hidden'); return; }
+  if (!slug) { err.textContent = 'Please enter a URL slug.'; err.classList.remove('hidden'); return; }
+  if (!image_url) { err.textContent = 'Please add an image URL.'; err.classList.remove('hidden'); return; }
+  if (!description) { err.textContent = 'Please add a description.'; err.classList.remove('hidden'); return; }
+
+  const impact = [];
+  for (let i = 1; i <= 3; i++) {
+    const icon = $('cfImpact' + i + 'Icon').value.trim();
+    const text = $('cfImpact' + i + 'Text').value.trim();
+    if (icon || text) impact.push({ icon: icon || '✨', text: text || '' });
+  }
+
+  const payload = {
+    slug, title, emoji, tagline, image_url, description,
+    verse, verse_ref, impact, active,
+    updated_at: new Date().toISOString(),
+  };
+
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
+
+  try {
+    if (editingCauseId) {
+      const { error } = await sb.from('causes').update(payload).eq('id', editingCauseId);
+      if (error) throw error;
+      showToast('Cause updated', 'success');
+    } else {
+      const { error } = await sb.from('causes').insert(payload);
+      if (error) throw error;
+      showToast('Cause created — copy the link to share', 'success');
+    }
+    closeCauseForm();
+    await adminLoadCauses();
+  } catch (e) {
+    const msg = e.message || 'Could not save.';
+    if (msg.includes('duplicate key') || msg.includes('unique')) {
+      err.textContent = 'That URL slug is already taken. Try a different one.';
+    } else {
+      err.textContent = msg;
+    }
+    err.classList.remove('hidden');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Save Cause';
+  }
+}
+
+async function deleteCause(id) {
+  if (!confirm('Delete this cause? The public link will stop working.')) return;
+  try {
+    await sb.from('causes').delete().eq('id', id);
+    showToast('Cause deleted', 'success');
+    await adminLoadCauses();
+  } catch (e) { showToast(e.message || 'Could not delete', 'error'); }
+}
+
 /* ═══ ADMIN ACCESS ═══ */
 function tapLogo() {
   logoClicks++;
@@ -1235,12 +1514,6 @@ function tapFooter() {
   footerTimer = setTimeout(() => { footerClicks = 0; }, 1500);
   if (footerClicks >= 5) { footerClicks = 0; openAdminGate(); }
 }
-window.addEventListener('hashchange', checkAdminHash);
-function checkAdminHash() {
-  const h = (location.hash || '').toLowerCase();
-  if (h === '#admin' || h === '#ministry-admin' || h === '#ministry') openAdminGate();
-}
-checkAdminHash();
 
 function openAdminGate() {
   if (adminUnlocked) { openAdminDashboard(); return; }
@@ -1294,17 +1567,18 @@ function adminLogout() {
   showView('homeView');
 }
 async function openAdminDashboard() {
+  await adminLoadCauses();
   await adminLoadGallery();
   await adminLoadPrayers();
   await adminLoadDonations();
   $('setOrphGoal').value = siteSettings.orphanage_goal || 100000;
   $('setMinistryName').value = siteSettings.ministry_name || 'Kakande Ministries';
-  switchAdminTab('gallery');
+  switchAdminTab('causes');
   showView('adminView');
 }
 function switchAdminTab(tab) {
   document.querySelectorAll('.tab[data-tab]').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
-  ['gallery','prayers','donations','settings'].forEach(t => {
+  ['causes','gallery','prayers','donations','settings'].forEach(t => {
     const el = $('adminTab-' + t); if (el) el.classList.toggle('hidden', t !== tab);
   });
 }
@@ -1520,7 +1794,6 @@ async function submitPrayer() {
   setTimeout(() => showToast('🙏 Your prayer has been received', 'success'), 400);
 }
 
-/* ═══ GIVE FROM PRAYER ═══ */
 function giveFromPrayer(purpose) {
   state.purpose = purpose;
   state.amount = null;
@@ -1550,7 +1823,10 @@ function startGivingOrphanage() {
   updateWizardUI();
   showView('wizardView');
 }
-function closeWizard() { showView('homeView'); }
+function closeWizard() {
+  if (location.hash.startsWith('#cause')) return;
+  showView('homeView');
+}
 function renderWizardAmounts() {
   const c = $('wizAmounts'); c.innerHTML = '';
   PRESETS.forEach(amt => {
@@ -1660,7 +1936,8 @@ async function submitGift() {
 
 function cancelWaiting() {
   pollToken++; clearTimeout(pollTimer);
-  showView('wizardView'); wizardStep = 3; updateWizardUI();
+  if (activeCause) showView('causeView');
+  else { showView('wizardView'); wizardStep = 3; updateWizardUI(); }
 }
 
 async function pollDonation(donationId) {
@@ -1703,7 +1980,8 @@ async function pollDonation(donationId) {
       return;
     }
     if (d.payment_status === 'failed' || d.payment_status === 'cancelled') {
-      showView('wizardView'); wizardStep = 3; updateWizardUI();
+      if (activeCause) showView('causeView');
+      else { showView('wizardView'); wizardStep = 3; updateWizardUI(); }
       showToast('The payment was not completed. You can try again.', 'error');
       return;
     }
@@ -1745,7 +2023,7 @@ function showReceipt(d) {
     "Pastor's Gift": 'Thank you for honouring your pastor. Your kindness refreshes a servant of God.',
     'Other': 'Thank you for your generous gift. Every shilling is used faithfully for the Kingdom.'
   };
-  $('rcThankNote').textContent = notes[purpose] || notes['Other'];
+  $('rcThankNote').textContent = notes[purpose] || 'Thank you for your generous gift. Every shilling is used faithfully for the Kingdom.';
 
   sessionStorage.setItem('km_just_gave', '1');
   showView('receiptView');
@@ -1762,7 +2040,7 @@ function shareReceipt() {
   );
 }
 
-/* ═══ ADMIN: Photo URLs ═══ */
+/* ═══ ADMIN: Gallery ═══ */
 document.addEventListener('input', (e) => {
   if (e.target.id === 'imgUrl') {
     const url = e.target.value.trim();
@@ -1942,6 +2220,7 @@ async function adminLoadDonations() {
         <div class="min-w-0">
           <p class="text-xs font-semibold text-gray-900 truncate">${d.anonymous ? 'Anonymous' : esc(d.donor_name || 'Friend')}${cat}</p>
           <p class="text-[10px] text-gray-400 font-mono">${esc(d.reference_no || '')} · ${esc(d.phone || '')}</p>
+          <p class="text-[10px] text-violet-600 font-semibold mt-0.5">${esc(d.purpose || '')}</p>
         </div>
         <div class="text-right flex-shrink-0 ml-2">
           <p class="text-sm font-bold text-violet-800">${fmt(d.amount)}</p>
