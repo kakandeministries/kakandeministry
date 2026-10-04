@@ -534,7 +534,7 @@
         </svg>
       </div>
       <div class="flex-1">
-        <div class="inline-block px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wider mb-1" style="background:rgba(251,191,36,.95);color:#451a03;">God bless your hands.</div>
+        <div class="inline-block px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wider mb-1" style="background:rgba(251,191,36,.95);color:#451a03;">God bless your donation.</div>
         <h3>Support the Ministry</h3>
         <p>Keep the Gospel going — crusades, missions, and the daily work of the church.</p>
       </div>
@@ -700,9 +700,13 @@
         <span class="text-sm text-gray-400 font-medium mr-2">KSh</span>
         <input type="number" id="customAmount" min="1" inputmode="numeric" placeholder="0" class="flex-1 bg-transparent py-3 text-sm font-mono outline-none" />
       </div>
-      <div class="mt-5">
-        <label class="fld-lbl">What is this gift for?</label>
+      <div class="mt-5" id="purposeGridWrap">
+        <label class="fld-lbl" id="purposeGridLabel">What is this gift for?</label>
         <div id="purposeGrid" class="grid grid-cols-3 gap-1.5"></div>
+        <div id="causePurposeBadge" class="hidden bg-violet-50 border border-violet-200 rounded-xl p-3">
+          <p class="text-[10px] font-bold text-violet-700 uppercase tracking-wider">Your gift is for</p>
+          <p id="causePurposeTitle" class="text-sm font-extrabold text-violet-900 mt-0.5">—</p>
+        </div>
       </div>
       <button onclick="wizardNext(2)" class="mt-5 w-full bg-violet-800 text-white py-3 rounded-xl hover:bg-violet-900 font-semibold text-sm">Continue when ready</button>
       <button onclick="closeWizard()" class="mt-2 w-full text-gray-500 py-2 text-xs font-medium">I'll give another time →</button>
@@ -933,7 +937,6 @@
 
   <div class="max-w-md mx-auto px-5 py-5 pb-20">
 
-    <!-- CAUSES TAB -->
     <div id="adminTab-causes">
       <div class="admin-card mb-4">
         <div class="flex items-center justify-between mb-2">
@@ -1006,7 +1009,6 @@
       </div>
     </div>
 
-    <!-- GALLERY TAB -->
     <div id="adminTab-gallery" class="hidden">
       <div class="admin-card mb-4">
         <h3 class="font-bold text-sm mb-2">Add a photo</h3>
@@ -1035,7 +1037,6 @@
       </div>
     </div>
 
-    <!-- PRAYERS TAB -->
     <div id="adminTab-prayers" class="hidden">
       <div class="admin-card mb-4">
         <div class="flex items-center justify-between">
@@ -1050,7 +1051,6 @@
       <div id="adminPrayerList" class="space-y-2.5"></div>
     </div>
 
-    <!-- DONATIONS TAB -->
     <div id="adminTab-donations" class="hidden">
       <div class="grid grid-cols-2 gap-2 mb-4">
         <div class="admin-card"><p class="text-[10px] font-bold text-gray-500 uppercase">Total received</p><p class="text-lg font-extrabold text-violet-800 mt-1" id="adTotal">—</p></div>
@@ -1064,7 +1064,6 @@
       </div>
     </div>
 
-    <!-- SETTINGS TAB -->
     <div id="adminTab-settings" class="hidden">
       <div class="admin-card mb-4">
         <h3 class="font-bold text-sm mb-2">Orphanage fund</h3>
@@ -1135,6 +1134,7 @@ let siteSettings = { orphanage_goal: 100000, ministry_name: 'Kakande Ministries'
 let logoClicks = 0, logoTimer = null, footerClicks = 0, footerTimer = null;
 let activeCause = null;
 let editingCauseId = null;
+let wizardFromCause = false;
 
 const fmt = (n) => CURRENCY + ' ' + Number(n || 0).toLocaleString('en-KE', { maximumFractionDigits: 0 });
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c =>
@@ -1280,6 +1280,7 @@ function shareCurrentCause() {
 function closeCause() {
   if (location.hash.startsWith('#cause')) history.replaceState(null, '', location.pathname);
   activeCause = null;
+  wizardFromCause = false;
   showView('homeView');
 }
 
@@ -1287,6 +1288,7 @@ function startGivingFromCause() {
   if (!activeCause) { startGiving(); return; }
   state.purpose = activeCause.title;
   state.amount = null;
+  wizardFromCause = true;
   wizardStep = 1;
   renderWizardAmounts();
   renderPurposes();
@@ -1797,6 +1799,7 @@ async function submitPrayer() {
 function giveFromPrayer(purpose) {
   state.purpose = purpose;
   state.amount = null;
+  wizardFromCause = false;
   wizardStep = 1;
   renderWizardAmounts();
   renderPurposes();
@@ -1809,6 +1812,7 @@ function giveFromPrayer(purpose) {
 function startGiving(presetAmount) {
   if (presetAmount) state.amount = presetAmount;
   if (state.purpose === 'Orphanage') state.purpose = 'Offering';
+  wizardFromCause = false;
   wizardStep = 1;
   renderWizardAmounts(); renderPurposes();
   $('customAmount').value = '';
@@ -1817,6 +1821,7 @@ function startGiving(presetAmount) {
 }
 function startGivingOrphanage() {
   state.purpose = 'Orphanage'; state.amount = null;
+  wizardFromCause = false;
   wizardStep = 1;
   renderWizardAmounts(); renderPurposes();
   $('customAmount').value = '';
@@ -1840,7 +1845,24 @@ function renderWizardAmounts() {
   });
 }
 function renderPurposes() {
-  const c = $('purposeGrid'); c.innerHTML = '';
+  const c = $('purposeGrid');
+  const label = $('purposeGridLabel');
+  const badge = $('causePurposeBadge');
+  const badgeTitle = $('causePurposeTitle');
+
+  if (wizardFromCause && activeCause) {
+    c.classList.add('hidden');
+    if (label) label.classList.add('hidden');
+    badge.classList.remove('hidden');
+    badgeTitle.textContent = activeCause.title;
+    return;
+  }
+
+  c.classList.remove('hidden');
+  if (label) label.classList.remove('hidden');
+  badge.classList.add('hidden');
+
+  c.innerHTML = '';
   PURPOSES.forEach(p => {
     const b = document.createElement('button');
     b.type = 'button';
