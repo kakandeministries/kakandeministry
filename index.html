@@ -90,7 +90,6 @@
     text-align:left;width:100%;
     position:relative;overflow:hidden;
   }
-  .appeal-card:active{transform:scale(.98)}
   .appeal-card .icon-wrap{
     width:3.5rem;height:3.5rem;border-radius:1rem;
     display:flex;align-items:center;justify-content:center;
@@ -99,7 +98,49 @@
   .appeal-card h3{font-size:1.05rem;font-weight:800;line-height:1.15}
   .appeal-card p{font-size:11.5px;line-height:1.4;opacity:.85;margin-top:3px}
   .appeal-card .arrow{opacity:.7;flex-shrink:0;transition:transform .2s ease}
-  .appeal-card:active .arrow{transform:translateX(4px)}
+  /* Appeal card animations */
+  @keyframes appeal-shine{
+    0%{transform:translateX(-130%) skewX(-15deg)}
+    55%{transform:translateX(240%) skewX(-15deg)}
+    100%{transform:translateX(240%) skewX(-15deg)}
+  }
+  @keyframes appeal-breathe{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.018)}
+  }
+  @keyframes appeal-arrow{
+    0%,100%{transform:translateX(0)}
+    50%{transform:translateX(6px)}
+  }
+  @keyframes appeal-icon-wiggle{
+    0%,100%{transform:rotate(0deg) scale(1)}
+    20%{transform:rotate(-7deg) scale(1.05)}
+    50%{transform:rotate(0deg) scale(1)}
+    80%{transform:rotate(7deg) scale(1.05)}
+  }
+  @keyframes appeal-glow{
+    0%,100%{box-shadow:0 10px 26px -8px rgba(0,0,0,.25),0 0 0 0 rgba(251,191,36,0)}
+    50%{box-shadow:0 14px 32px -8px rgba(0,0,0,.35),0 0 0 8px rgba(251,191,36,.08)}
+  }
+  .appeal-card{
+    animation:appeal-breathe 3.4s ease-in-out infinite,appeal-glow 3.4s ease-in-out infinite;
+  }
+  .appeal-card::after{
+    content:'';position:absolute;top:0;left:0;width:55%;height:100%;
+    background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.28) 45%,rgba(255,255,255,.42) 50%,rgba(255,255,255,.28) 55%,transparent 100%);
+    pointer-events:none;
+    animation:appeal-shine 3.6s ease-in-out infinite;
+    z-index:1;
+  }
+  .appeal-card > *{position:relative;z-index:2}
+  .appeal-card .arrow{animation:appeal-arrow 1.8s ease-in-out infinite}
+  .appeal-card .icon-wrap svg{animation:appeal-icon-wiggle 2.8s ease-in-out infinite}
+  .appeal-card.delay-1{animation-delay:0s,0s}
+  .appeal-card.delay-2{animation-delay:.9s,.9s}
+  .appeal-card.delay-2::after{animation-delay:1.2s}
+  .appeal-card.delay-2 .icon-wrap svg{animation-delay:.4s}
+  .appeal-card.delay-2 .arrow{animation-delay:.5s}
+  .appeal-card:active{transform:scale(.97) !important;animation-play-state:paused}
 </style>
 </head>
 <body class="bg-gray-50 text-gray-900 min-h-screen">
@@ -117,7 +158,6 @@
     </div>
   </header>
 
-  <!-- HERO -->
   <section class="bg-gradient-to-b from-violet-800 to-violet-950 px-5 pt-8 pb-7">
     <div class="max-w-md mx-auto">
       <div class="inline-flex items-center gap-1.5 bg-amber-400/95 text-amber-950 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full mb-3">
@@ -146,7 +186,6 @@
     </div>
   </section>
 
-  <!-- GALLERY right under hero -->
   <section class="max-w-md mx-auto px-5 mt-6">
     <div class="flex items-center justify-between mb-3">
       <h2 class="text-sm font-bold text-gray-800">From the ministry</h2>
@@ -155,10 +194,8 @@
     <div id="homeGallery" class="carousel"></div>
   </section>
 
-  <!-- 1. PRAYER — big button FIRST, then preview -->
+  <!-- 1. PRAYER -->
   <section class="max-w-md mx-auto px-5 mt-7">
-
-    <!-- BIG PRAYER BUTTON — top of section -->
     <button onclick="openPrayerForm()" class="w-full relative overflow-hidden bg-gradient-to-br from-violet-700 via-violet-800 to-violet-950 text-white rounded-2xl p-5 shadow-xl active:scale-[0.98] transition-transform text-left">
       <div class="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-amber-400/20 blur-2xl"></div>
       <div class="relative flex items-center gap-4">
@@ -178,7 +215,6 @@
       </div>
     </button>
 
-    <!-- Preview heading -->
     <div class="flex items-center justify-between mt-6 mb-3">
       <h2 class="text-sm font-bold text-gray-800">Recent requests</h2>
       <button onclick="openPrayer()" class="text-[11px] font-semibold text-violet-700">All requests →</button>
@@ -447,23 +483,23 @@
     </div>
 
     <!-- APPEAL -->
-    <div class="text-center mb-4">
-      <h2 class="text-base font-extrabold text-gray-900">Would you like to sow with your prayer?</h2>
-      <p class="text-[12px] text-gray-500 mt-1 leading-snug">Entirely optional. Your prayer is already received — you are loved either way.</p>
+    <div class="text-center mb-5">
+      <h2 class="text-xl font-extrabold text-gray-900 leading-tight">A little donation will help</h2>
+      <p class="text-[12px] text-gray-500 mt-1.5 leading-snug">Entirely optional — your prayer is already received and you are loved either way.</p>
     </div>
 
     <!-- MINISTRY CARD -->
     <button type="button" onclick="giveFromPrayer('Offering')"
-      class="appeal-card mb-3"
+      class="appeal-card delay-1 mb-3"
       style="background:linear-gradient(135deg,#7c3aed 0%,#5b21b6 55%,#3b0764 100%);color:#fff;">
       <div class="absolute -top-8 -right-6 w-32 h-32 rounded-full bg-amber-400/25 blur-2xl pointer-events-none"></div>
-      <div class="icon-wrap relative" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);">
+      <div class="icon-wrap" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);">
         <svg class="w-7 h-7 text-amber-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
         </svg>
       </div>
-      <div class="flex-1 relative">
-        <div class="inline-block px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wider mb-1" style="background:rgba(251,191,36,.95);color:#451a03;">We need your help</div>
+      <div class="flex-1">
+        <div class="inline-block px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wider mb-1" style="background:rgba(251,191,36,.95);color:#451a03;">Donate to our cause</div>
         <h3>Support the Ministry</h3>
         <p>Keep the Gospel going — crusades, missions, and the daily work of the church.</p>
       </div>
@@ -474,15 +510,15 @@
 
     <!-- ORPHANAGE CARD -->
     <button type="button" onclick="giveFromPrayer('Orphanage')"
-      class="appeal-card mb-5"
+      class="appeal-card delay-2 mb-5"
       style="background:linear-gradient(135deg,#fbbf24 0%,#f59e0b 55%,#b45309 100%);color:#451a03;">
       <div class="absolute -top-8 -right-6 w-32 h-32 rounded-full bg-white/30 blur-2xl pointer-events-none"></div>
-      <div class="icon-wrap relative" style="background:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.6);">
+      <div class="icon-wrap" style="background:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.6);">
         <svg class="w-7 h-7" style="color:#78350f" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
         </svg>
       </div>
-      <div class="flex-1 relative">
+      <div class="flex-1">
         <div class="inline-block px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wider mb-1" style="background:rgba(69,26,3,.9);color:#fef3c7;">Stand with children</div>
         <h3>Support the Orphanage</h3>
         <p>Feed, clothe and educate a child in our care — one meal at a time.</p>
@@ -1030,7 +1066,6 @@ function formatPhoneDisplay(input) {
 const VIEWS = ['homeView','galleryView','prayerView','prayerFormView','prayerThanksView','orphanageView',
   'wizardView','sentView','receiptView','adminGateView','adminView'];
 
-/* FAB is only shown on homeView */
 function updateFab() {
   const fab = $('prayFab');
   if (!fab) return;
@@ -1045,7 +1080,6 @@ function showView(id) {
   window.scrollTo(0, 0);
 }
 
-/* ═══ OPEN VIEWS ═══ */
 function openOrphanage() { showView('orphanageView'); }
 function openGallery() { currentGalleryFilter = 'all'; renderGalleryView(); showView('galleryView'); }
 function openPrayer() { renderPrayerWall(); showView('prayerView'); }
