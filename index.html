@@ -28,7 +28,7 @@
   @keyframes success-bounce{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.08);opacity:1}100%{transform:scale(1);opacity:1}}
   .success-bounce{animation:success-bounce .6s cubic-bezier(.34,1.56,.64,1)}
   @keyframes pulse-ring-light{0%{transform:scale(.8);opacity:.9}100%{transform:scale(1.6);opacity:0}}
-  .pulse-ring-light::before{content:'';position:absolute;inset:0;border-radius:9999px;background:rgba(255,255,255,.7);animation:pulse-ring-light 2s cubic-bezier(.4,0,.6,1) infinite}
+  .pulse-ring-light::before{content:'';position:absolute;inset:0;border-radius:9999px;background:rgba(124,58,237,.28);animation:pulse-ring-light 2s cubic-bezier(.4,0,.6,1) infinite}
   @keyframes dot-fade{0%,80%,100%{opacity:.3;transform:scale(.8)}40%{opacity:1;transform:scale(1.1)}}
   .dot-fade{animation:dot-fade 1.4s ease-in-out infinite}
   @keyframes phone-wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-6deg)}75%{transform:rotate(6deg)}}
@@ -63,7 +63,6 @@
   .fld{width:100%;border:1px solid #e5e7eb;background:#f9fafb;border-radius:.75rem;padding:.75rem;font-size:.875rem;outline:none;transition:all .15s}
   .fld:focus{background:#fff;border-color:#7c3aed;box-shadow:0 0 0 4px rgba(124,58,237,.1)}
   .fld-lbl{display:block;font-size:.75rem;font-weight:500;color:#4b5563;margin-bottom:.4rem}
-  /* Floating Action Button */
   .pray-fab{
     position:fixed;bottom:22px;right:22px;z-index:45;
     display:inline-flex;align-items:center;gap:.5rem;
@@ -81,7 +80,6 @@
     z-index:-1;
   }
   @keyframes fab-pulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.15);opacity:0}}
-  /* Appeal cards */
   .appeal-card{
     display:flex;align-items:center;gap:1rem;
     padding:1.1rem 1.15rem;border-radius:1.25rem;
@@ -98,7 +96,6 @@
   .appeal-card h3{font-size:1.05rem;font-weight:800;line-height:1.15}
   .appeal-card p{font-size:11.5px;line-height:1.4;opacity:.85;margin-top:3px}
   .appeal-card .arrow{opacity:.7;flex-shrink:0;transition:transform .2s ease}
-  /* Appeal card animations */
   @keyframes appeal-shine{
     0%{transform:translateX(-130%) skewX(-15deg)}
     55%{transform:translateX(240%) skewX(-15deg)}
@@ -194,7 +191,6 @@
     <div id="homeGallery" class="carousel"></div>
   </section>
 
-  <!-- 1. PRAYER -->
   <section class="max-w-md mx-auto px-5 mt-7">
     <button onclick="openPrayerForm()" class="w-full relative overflow-hidden bg-gradient-to-br from-violet-700 via-violet-800 to-violet-950 text-white rounded-2xl p-5 shadow-xl active:scale-[0.98] transition-transform text-left">
       <div class="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-amber-400/20 blur-2xl"></div>
@@ -222,7 +218,6 @@
     <div id="homePrayers" class="bg-white rounded-2xl border border-gray-100 divide-y divide-gray-50 overflow-hidden"></div>
   </section>
 
-  <!-- 2. ORPHANAGE -->
   <section class="max-w-md mx-auto px-5 mt-7">
     <div class="rounded-2xl overflow-hidden border border-violet-100 bg-gradient-to-br from-amber-50 to-violet-50">
       <div class="p-4">
@@ -248,7 +243,6 @@
     </div>
   </section>
 
-  <!-- 3. GIVE -->
   <section class="max-w-md mx-auto px-5 mt-7">
     <div class="flex items-center justify-between mb-3">
       <h2 class="text-sm font-bold text-gray-800">Where your gift goes</h2>
@@ -463,32 +457,23 @@
 
 <!-- ═══════════════ PRAYER THANKS ═══════════════ -->
 <div id="prayerThanksView" class="hidden min-h-screen w-full bg-gray-50">
-  <div class="max-w-md mx-auto px-5 pt-10 pb-10">
+  <div class="max-w-md mx-auto px-5 pt-6 pb-10">
 
-    <div class="text-center mb-6 success-bounce">
-      <div class="w-20 h-20 rounded-full bg-violet-100 flex items-center justify-center mx-auto mb-3">
-        <svg class="w-10 h-10 text-violet-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.6">
+    <div class="text-center mb-4 success-bounce">
+      <div class="w-16 h-16 rounded-full bg-violet-100 flex items-center justify-center mx-auto mb-2">
+        <svg class="w-8 h-8 text-violet-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.6">
           <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
         </svg>
       </div>
-      <h1 class="text-2xl font-extrabold text-gray-900">Prayer Received</h1>
-      <p class="text-sm text-gray-500 mt-2 leading-relaxed" id="prThanksLine">Our team will lift your request before the Lord.</p>
+      <h1 class="text-xl font-extrabold text-gray-900">Prayer Received</h1>
+      <p class="text-xs text-gray-500 mt-1 leading-relaxed" id="prThanksLine">Our team will lift your request before the Lord.</p>
     </div>
 
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 mb-5">
-      <p class="text-center text-[13px] text-gray-700 italic leading-relaxed">
-        &ldquo;Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God.&rdquo;
-      </p>
-      <p class="text-center text-[10px] text-violet-700 font-bold mt-2">— Philippians 4:6</p>
+    <div class="text-center mb-4">
+      <h2 class="text-lg font-extrabold text-gray-900 leading-tight">A little donation will help</h2>
+      <p class="text-[11px] text-gray-500 mt-1 leading-snug">Entirely optional — your prayer is already received and you are loved either way.</p>
     </div>
 
-    <!-- APPEAL -->
-    <div class="text-center mb-5">
-      <h2 class="text-xl font-extrabold text-gray-900 leading-tight">A little donation will help</h2>
-      <p class="text-[12px] text-gray-500 mt-1.5 leading-snug">Entirely optional — your prayer is already received and you are loved either way.</p>
-    </div>
-
-    <!-- MINISTRY CARD -->
     <button type="button" onclick="giveFromPrayer('Offering')"
       class="appeal-card delay-1 mb-3"
       style="background:linear-gradient(135deg,#7c3aed 0%,#5b21b6 55%,#3b0764 100%);color:#fff;">
@@ -499,7 +484,7 @@
         </svg>
       </div>
       <div class="flex-1">
-        <div class="inline-block px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wider mb-1" style="background:rgba(251,191,36,.95);color:#451a03;">Donate to our cause</div>
+        <div class="inline-block px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wider mb-1" style="background:rgba(251,191,36,.95);color:#451a03;">Build altar.</div>
         <h3>Support the Ministry</h3>
         <p>Keep the Gospel going — crusades, missions, and the daily work of the church.</p>
       </div>
@@ -508,9 +493,8 @@
       </svg>
     </button>
 
-    <!-- ORPHANAGE CARD -->
     <button type="button" onclick="giveFromPrayer('Orphanage')"
-      class="appeal-card delay-2 mb-5"
+      class="appeal-card delay-2 mb-4"
       style="background:linear-gradient(135deg,#fbbf24 0%,#f59e0b 55%,#b45309 100%);color:#451a03;">
       <div class="absolute -top-8 -right-6 w-32 h-32 rounded-full bg-white/30 blur-2xl pointer-events-none"></div>
       <div class="icon-wrap" style="background:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.6);">
@@ -527,6 +511,13 @@
         <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
       </svg>
     </button>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-3.5 mb-4">
+      <p class="text-center text-[12px] text-gray-700 italic leading-relaxed">
+        &ldquo;Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God.&rdquo;
+      </p>
+      <p class="text-center text-[10px] text-violet-700 font-bold mt-1.5">— Philippians 4:6</p>
+    </div>
 
     <button type="button" onclick="showView('homeView')" class="w-full text-gray-500 py-3 text-sm font-medium">
       Maybe later →
@@ -769,23 +760,56 @@
   </div>
 </div>
 
-<!-- ═══════════════ STK SENT ═══════════════ -->
-<div id="sentView" class="hidden min-h-screen w-full bg-gray-900/50 flex items-center justify-center p-5">
-  <div class="w-full max-w-xs bg-white rounded-3xl shadow-2xl p-6 text-center float-up-anim">
-    <div class="relative w-16 h-16 rounded-full bg-violet-50 border-2 border-violet-100 flex items-center justify-center mx-auto mb-4">
-      <svg class="w-8 h-8 text-violet-700 phone-wiggle" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+<!-- ═══════════════ STK SENT (wait screen) ═══════════════ -->
+<div id="sentView" class="hidden min-h-screen w-full bg-gradient-to-br from-violet-900 via-violet-950 to-black flex items-center justify-center p-5">
+  <div class="w-full max-w-sm bg-white rounded-3xl shadow-2xl p-6 text-center float-up-anim">
+
+    <div class="relative inline-block mb-4">
+      <div class="pulse-ring-light relative w-20 h-20 rounded-full bg-violet-50 border-2 border-violet-100 flex items-center justify-center mx-auto">
+        <svg class="w-10 h-10 text-violet-700 relative z-10 phone-wiggle" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+        </svg>
+      </div>
+    </div>
+
+    <h2 class="text-xl font-extrabold text-gray-900 leading-tight">Check your phone</h2>
+    <p class="text-sm text-gray-600 mt-2 leading-snug px-1">
+      We've sent an M-Pesa prompt to your phone. Enter your PIN to complete your gift.
+    </p>
+
+    <div class="mt-5 bg-violet-50 border border-violet-200 rounded-2xl p-4">
+      <div class="flex items-center justify-center gap-1.5 mb-2.5">
+        <span class="w-2 h-2 rounded-full bg-violet-600 dot-fade" style="animation-delay:0s"></span>
+        <span class="w-2 h-2 rounded-full bg-violet-600 dot-fade" style="animation-delay:.2s"></span>
+        <span class="w-2 h-2 rounded-full bg-violet-600 dot-fade" style="animation-delay:.4s"></span>
+      </div>
+      <p class="text-sm font-extrabold text-violet-900 leading-tight">Please wait as we process your gift</p>
+      <p class="text-[11px] text-violet-700 mt-1.5 leading-snug">
+        Do not close this page. Your receipt will appear here the moment payment is confirmed.
+      </p>
+    </div>
+
+    <div class="mt-5">
+      <div class="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+        <div id="sentProgressBar" class="h-full bg-gradient-to-r from-violet-500 to-violet-700 rounded-full" style="width:0%;transition:width 1s linear"></div>
+      </div>
+      <p id="sentStatusText" class="text-[10px] text-gray-500 mt-2">Waiting for M-Pesa confirmation…</p>
+    </div>
+
+    <p id="sentRef" class="mt-3 text-[10px] text-gray-400 font-mono"></p>
+
+    <div class="mt-5 pt-4 border-t border-gray-100 flex items-start gap-2 text-left">
+      <svg class="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 2l2.09 6.26L20 9.27l-4.5 4.13L17 20l-5-3-5 3 1.5-6.6L4 9.27l5.91-1.01L12 2z"/>
       </svg>
+      <p class="text-[10px] text-gray-500 leading-snug">
+        This usually takes under a minute. If the prompt does not appear on your phone, please check your network and try again from the beginning.
+      </p>
     </div>
-    <h2 class="text-lg font-extrabold">Check your phone</h2>
-    <p class="text-xs text-gray-500 mt-1">Enter your M-Pesa PIN to complete your gift</p>
-    <div class="mt-4 flex items-center justify-center gap-1.5">
-      <span class="w-1.5 h-1.5 rounded-full bg-violet-600 dot-fade" style="animation-delay:0s"></span>
-      <span class="w-1.5 h-1.5 rounded-full bg-violet-600 dot-fade" style="animation-delay:.2s"></span>
-      <span class="w-1.5 h-1.5 rounded-full bg-violet-600 dot-fade" style="animation-delay:.4s"></span>
-    </div>
-    <p id="sentRef" class="mt-4 text-[10px] text-gray-400 font-mono"></p>
-    <button onclick="cancelWaiting()" class="mt-4 w-full bg-gray-100 text-gray-600 py-2.5 rounded-xl font-semibold text-xs">Cancel</button>
+
+    <button id="sentRetryBtn" onclick="cancelWaiting()" class="mt-5 w-full bg-gray-100 text-gray-500 py-2.5 rounded-xl font-semibold text-[11px] hidden">
+      Prompt didn't arrive? Try again
+    </button>
   </div>
 </div>
 
@@ -1009,7 +1033,7 @@ const $  = (id) => document.getElementById(id);
 const CURRENCY  = 'KSh';
 const MIN_GIFT  = 1;
 const MAX_GIFT  = 500000;
-const STK_TIMEOUT = 90;
+const STK_TIMEOUT = 240;
 const ADMIN_SESSION_KEY = 'km_admin_unlocked';
 
 const PRESETS  = [50, 100, 200, 500, 1000, 2000, 5000, 10000];
@@ -1534,25 +1558,54 @@ function cancelWaiting() {
 async function pollDonation(donationId) {
   const myToken = ++pollToken;
   let elapsed = 0;
+
+  const bar = $('sentProgressBar');
+  const status = $('sentStatusText');
+  const retry = $('sentRetryBtn');
+  if (bar) bar.style.width = '0%';
+  if (status) status.textContent = 'Waiting for M-Pesa confirmation…';
+  if (retry) retry.classList.add('hidden');
+
   while (elapsed < STK_TIMEOUT) {
     await sleep(2000);
     if (myToken !== pollToken) return;
     elapsed += 2;
+
+    const pct = Math.min(100, Math.round((elapsed / STK_TIMEOUT) * 100));
+    if (bar) bar.style.width = pct + '%';
+    if (status) {
+      if (elapsed < 15) status.textContent = 'Waiting for M-Pesa confirmation…';
+      else if (elapsed < 45) status.textContent = 'Processing your gift…';
+      else if (elapsed < 90) status.textContent = 'Almost there — do not close this page.';
+      else status.textContent = 'Still checking with M-Pesa… please wait a moment.';
+    }
+
     let d = null;
     try {
       const { data } = await sb.from('donations').select('*').eq('id', donationId).single();
       d = data;
     } catch (_) { continue; }
+
     if (!d || myToken !== pollToken) continue;
-    if (d.payment_status === 'paid') { currentDonation = d; showReceipt(d); refreshOrphanageProgress(); return; }
+
+    if (d.payment_status === 'paid') {
+      currentDonation = d;
+      showReceipt(d);
+      refreshOrphanageProgress();
+      return;
+    }
     if (d.payment_status === 'failed' || d.payment_status === 'cancelled') {
       showView('wizardView'); wizardStep = 3; updateWizardUI();
-      showToast('The payment was not completed. You can try again.', 'error'); return;
+      showToast('The payment was not completed. You can try again.', 'error');
+      return;
     }
   }
+
   if (myToken !== pollToken) return;
-  showView('wizardView'); wizardStep = 3; updateWizardUI();
-  showToast('We did not receive confirmation. Please contact the ministry office.', 'warning');
+
+  if (status) status.textContent = 'We did not receive confirmation yet.';
+  if (retry) retry.classList.remove('hidden');
+  showToast('We did not receive confirmation yet — you can check again or contact the ministry.', 'warning');
 }
 
 function showReceipt(d) {
