@@ -138,6 +138,92 @@
   .appeal-card.delay-2 .icon-wrap svg{animation-delay:.4s}
   .appeal-card.delay-2 .arrow{animation-delay:.5s}
   .appeal-card:active{transform:scale(.97) !important;animation-play-state:paused}
+  /* Animated prayer wall CTA */
+  .pray-cta{
+    position:relative;overflow:hidden;
+    background:linear-gradient(135deg,#7c3aed 0%,#5b21b6 55%,#3b0764 100%);
+    animation:pray-cta-breathe 3.2s ease-in-out infinite,pray-cta-glow 3.2s ease-in-out infinite;
+  }
+  @keyframes pray-cta-breathe{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.025)}
+  }
+  @keyframes pray-cta-glow{
+    0%,100%{box-shadow:0 12px 30px -8px rgba(91,33,182,.55),0 0 0 0 rgba(251,191,36,0)}
+    50%{box-shadow:0 16px 38px -8px rgba(91,33,182,.7),0 0 0 10px rgba(251,191,36,.1)}
+  }
+  .pray-cta::after{
+    content:'';position:absolute;top:0;left:0;width:60%;height:100%;
+    background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.3) 45%,rgba(255,255,255,.5) 50%,rgba(255,255,255,.3) 55%,transparent 100%);
+    pointer-events:none;
+    animation:pray-cta-shine 3.4s ease-in-out infinite;
+    z-index:1;
+  }
+  @keyframes pray-cta-shine{
+    0%{transform:translateX(-130%) skewX(-15deg)}
+    55%{transform:translateX(240%) skewX(-15deg)}
+    100%{transform:translateX(240%) skewX(-15deg)}
+  }
+  .pray-cta > *{position:relative;z-index:2}
+  .pray-cta .arrow{animation:pray-cta-arrow 1.8s ease-in-out infinite}
+  @keyframes pray-cta-arrow{
+    0%,100%{transform:translateX(0)}
+    50%{transform:translateX(6px)}
+  }
+  .pray-cta .icon-wrap svg{animation:pray-cta-heart 2s ease-in-out infinite}
+  @keyframes pray-cta-heart{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.15)}
+  }
+  .pray-cta:active{transform:scale(.97) !important;animation-play-state:paused}
+  /* ═══ Gallery image animations ═══ */
+  @keyframes gal-in {
+    from { opacity: 0; transform: translateY(16px) scale(.94); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes gal-ken-burns {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.07); }
+  }
+  @keyframes gal-shine {
+    0%   { transform: translateX(-130%) skewX(-20deg); }
+    55%  { transform: translateX(240%) skewX(-20deg); }
+    100% { transform: translateX(240%) skewX(-20deg); }
+  }
+  .gal-item {
+    animation: gal-in .7s cubic-bezier(.34,1.56,.64,1) both;
+  }
+  .gal-item img {
+    animation: gal-ken-burns 9s ease-in-out infinite;
+  }
+  .gal-item::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 55%; height: 100%;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.32) 50%, transparent 100%);
+    pointer-events: none;
+    animation: gal-shine 5.5s ease-in-out infinite;
+    z-index: 1;
+  }
+  .gal-item > div { z-index: 2; }
+  .gal-item:nth-child(1) { animation-delay: .05s; }
+  .gal-item:nth-child(2) { animation-delay: .1s; }
+  .gal-item:nth-child(3) { animation-delay: .15s; }
+  .gal-item:nth-child(4) { animation-delay: .2s; }
+  .gal-item:nth-child(5) { animation-delay: .25s; }
+  .gal-item:nth-child(6) { animation-delay: .3s; }
+  .gal-item:nth-child(7) { animation-delay: .35s; }
+  .gal-item:nth-child(8) { animation-delay: .4s; }
+  .gal-item:nth-child(9) { animation-delay: .45s; }
+  .gal-item:nth-child(10) { animation-delay: .5s; }
+  /* Orphanage hero gentle zoom */
+  #orphHero { overflow: hidden; }
+  @keyframes hero-zoom {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.06); }
+  }
+  #orphHeroImg { animation: hero-zoom 16s ease-in-out infinite; }
 </style>
 </head>
 <body class="bg-gray-50 text-gray-900 min-h-screen">
@@ -319,16 +405,38 @@
     <div class="max-w-md mx-auto px-5 py-3 flex items-center gap-3">
       <button onclick="showView('homeView')" class="text-gray-600 text-lg">&larr;</button>
       <span class="font-bold text-base">Prayer Wall</span>
-      <button onclick="openPrayerForm()" class="ml-auto text-[11px] font-bold text-violet-800 bg-violet-50 border border-violet-100 px-3 py-1.5 rounded-full">+ Request</button>
     </div>
   </header>
-  <div class="max-w-md mx-auto px-5 py-5 pb-24">
+
+  <div class="max-w-md mx-auto px-5 pt-5 pb-24">
+
+    <button type="button" onclick="openPrayerForm()"
+      class="pray-cta w-full text-white rounded-2xl p-5 shadow-2xl active:scale-[0.98] transition-transform text-left mb-5">
+      <div class="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-amber-400/25 blur-2xl pointer-events-none"></div>
+      <div class="flex items-center gap-4">
+        <div class="icon-wrap w-14 h-14 rounded-2xl bg-white/15 backdrop-blur border border-white/25 flex items-center justify-center flex-shrink-0">
+          <svg class="w-7 h-7 text-amber-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+          </svg>
+        </div>
+        <div class="flex-1">
+          <p class="text-[10px] font-extrabold text-amber-300 uppercase tracking-wider">Have a need?</p>
+          <p class="text-lg font-extrabold leading-tight mt-0.5">Submit a Prayer Request</p>
+          <p class="text-[11px] text-violet-100/85 mt-1 leading-snug">Our team will stand with you in prayer.</p>
+        </div>
+        <svg class="arrow w-5 h-5 text-amber-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+        </svg>
+      </div>
+    </button>
+
     <div class="bg-gradient-to-br from-violet-800 to-violet-950 text-white rounded-2xl p-4 mb-4">
       <p class="text-xs opacity-90 leading-snug italic">
         &ldquo;Confess your sins to each other and pray for each other so that you may be healed. The prayer of a righteous person is powerful and effective.&rdquo;
       </p>
       <p class="text-[10px] text-amber-300 font-bold mt-2 not-italic">— James 5:16</p>
     </div>
+
     <div id="prayerList" class="space-y-2.5"></div>
     <p id="prayerEmpty" class="hidden text-center text-sm text-gray-400 py-16">No public prayer requests yet.</p>
   </div>
@@ -484,7 +592,7 @@
         </svg>
       </div>
       <div class="flex-1">
-        <div class="inline-block px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wider mb-1" style="background:rgba(251,191,36,.95);color:#451a03;">Build altar.</div>
+        <div class="inline-block px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wider mb-1" style="background:rgba(251,191,36,.95);color:#451a03;">We need your help.</div>
         <h3>Support the Ministry</h3>
         <p>Keep the Gospel going — crusades, missions, and the daily work of the church.</p>
       </div>
