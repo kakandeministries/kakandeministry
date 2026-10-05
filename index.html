@@ -1331,6 +1331,12 @@ function updateFab() {
 }
 
 function showView(id) {
+  // Tear down the donation watcher when leaving the sent view
+  if (id !== 'sentView' && pollTimer) {
+    pollToken++;
+    clearTimeout(pollTimer);
+    pollTimer = null;
+  }
   VIEWS.forEach(v => { const el = $(v); if (el) el.classList.add('hidden'); });
   $(id).classList.remove('hidden');
   updateFab();
@@ -2196,64 +2202,91 @@ async function submitGift() {
   }
 }
 
+function teardownDonationWatcher() {
+  pollToken++;
+  clearTimeout(pollTimer);
+  pollTimer = null;
+}
+
 function cancelWaiting() {
-  pollToken++; clearTimeout(pollTimer);
+  teardownDonationWatcher();
   if (activeCause) showView('causeView');
   else { showView('wizardView'); wizardStep = 3; updateWizardUI(); }
 }
 
+/* ═══════════════════════════════════════════════════════════
+   DONATION POLLER — fires immediately, then every 1 second
+   ═══════════════════════════════════════════════════════════ */
 async function pollDonation(donationId) {
   const myToken = ++pollToken;
-  let elapsed = 0;
-
-  const bar = $('sentProgressBar');
+  const bar    = $('sentProgressBar');
   const status = $('sentStatusText');
-  const retry = $('sentRetryBtn');
-  if (bar) bar.style.width = '0%';
+  const retry  = $('sentRetryBtn');
+  if (bar)    bar.style.width = '0%';
   if (status) status.textContent = 'Waiting for M-Pesa confirmation…';
-  if (retry) retry.classList.add('hidden');
+  if (retry)  retry.classList.add('hidden');
 
-  while (elapsed < STK_TIMEOUT) {
-    await sleep(2000);
-    if (myToken !== pollToken) return;
-    elapsed += 2;
+  let settled = false;
+  const finish = (fn) => {
+    if (settled || myToken !== pollToken) return;
+    settled = true;
+    try { fn(); } catch (e) { console.error('finish handler failed', e); }
+  };
 
-    const pct = Math.min(100, Math.round((elapsed / STK_TIMEOUT) * 100));
-    if (bar) bar.style.width = pct + '%';
+  const started = Date.now();
+
+  const tick = async () => {
+    if (settled || myToken !== pollToken) return;
+    const elapsed = (Date.now() - started) / 1000;
+
+    if (elapsed >= STK_TIMEOUT) {
+      if (status) status.textContent = 'We did not receive confirmation yet.';
+      if (retry)  retry.classList.remove('hidden');
+      showToast('We did not receive confirmation yet — you can check again or contact the ministry.', 'warning');
+      return;
+    }
+
+    if (bar) bar.style.width = Math.min(100, (elapsed / STK_TIMEOUT) * 100) + '%';
     if (status) {
-      if (elapsed < 15) status.textContent = 'Waiting for M-Pesa confirmation…';
+      if (elapsed < 15)      status.textContent = 'Waiting for M-Pesa confirmation…';
       else if (elapsed < 45) status.textContent = 'Processing your gift…';
       else if (elapsed < 90) status.textContent = 'Almost there — do not close this page.';
-      else status.textContent = 'Still checking with M-Pesa… please wait a moment.';
+      else                   status.textContent = 'Still checking with M-Pesa… please wait a moment.';
     }
 
     let d = null;
     try {
       const { data } = await sb.from('donations').select('*').eq('id', donationId).single();
       d = data;
-    } catch (_) { continue; }
+    } catch (_) { /* network hiccup — keep going */ }
 
-    if (!d || myToken !== pollToken) continue;
+    if (!d || myToken !== pollToken) {
+      if (!settled && myToken === pollToken) pollTimer = setTimeout(tick, 1000);
+      return;
+    }
 
     if (d.payment_status === 'paid') {
-      currentDonation = d;
-      showReceipt(d);
-      refreshOrphanageProgress();
+      finish(() => {
+        currentDonation = d;
+        showReceipt(d);
+        refreshOrphanageProgress();
+      });
       return;
     }
+
     if (d.payment_status === 'failed' || d.payment_status === 'cancelled') {
-      if (activeCause) showView('causeView');
-      else { showView('wizardView'); wizardStep = 3; updateWizardUI(); }
-      showToast('The payment was not completed. You can try again.', 'error');
+      finish(() => {
+        if (activeCause) showView('causeView');
+        else { showView('wizardView'); wizardStep = 3; updateWizardUI(); }
+        showToast('The payment was not completed. You can try again.', 'error');
+      });
       return;
     }
-  }
 
-  if (myToken !== pollToken) return;
+    if (!settled && myToken === pollToken) pollTimer = setTimeout(tick, 1000);
+  };
 
-  if (status) status.textContent = 'We did not receive confirmation yet.';
-  if (retry) retry.classList.remove('hidden');
-  showToast('We did not receive confirmation yet — you can check again or contact the ministry.', 'warning');
+  tick(); // ← first check fires immediately, no initial delay
 }
 
 function showReceipt(d) {
